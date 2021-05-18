@@ -1,0 +1,688 @@
+@media (min-width: 1200px) {
+  .DivShortAbout{
+    text-align: left;
+  }
+  .nextButton{
+    float: left;
+  }
+}
+ 
+ @media (max-width: 767px)  {
+  .DivPrice{
+    margin-top: 20px;
+    text-align: center;
+  }
+  .DivShortAbout{
+    text-align: center;
+  }
+  .RowCountAndCart{
+    text-align: center;
+  }
+} 
+
+@media (max-width: 380px) {
+  .CarouselImg{
+    min-height: 250px;
+    min-width: 250px;
+  }
+  
+}
+
+@media (min-width: 381px) {
+  .CarouselImg{
+    min-height: 400px;
+    min-width: 400px;
+  }
+  
+}
+
+@media (min-width: 992px) {
+  .nextButton{
+    margin-bottom: 105px;
+  }
+}
+
+@media (max-width: 991px) {
+  .nextButton{
+    margin-bottom: 30px;
+  }
+}
+
+@media (min-width: 458px) and (max-width: 480px) {
+  .AddToCartButt{
+    white-space:nowrap; 
+  }
+  
+}
+
+@media (min-width: 549px) and (max-width: 480px) {
+  .PriceBadge{
+    white-space:nowrap; 
+  }
+  
+}
+
+@media (max-width: 367px) {
+  .fullLogo{
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 399px) and (max-width: 575px) {
+  .PriceBadge{
+    white-space:nowrap; 
+  }
+  
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+  .CarouselImg{
+    min-height: 400px;
+    min-width: 400px;
+  }
+  
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+  .CarouselImg{
+    min-height: 250px;
+    min-width: 250px;
+  }
+}
+
+/* Адаптивность иконок авторизации и корзины   */
+@media (max-width: 345px) {.HeadIcon, .FootIcon {font-size: 45px;}}
+@media (max-width: 335px) {.HeadIcon, .FootIcon {font-size: 40px;}}
+@media (max-width: 326px) {.HeadIcon, .FootIcon {font-size: 35px;}}
+@media (max-width: 316px) {.HeadIcon, .FootIcon {font-size: 30px;}}
+@media (max-width: 306px) {.HeadIcon, .FootIcon {font-size: 25px;}}
+
+@media (min-width: 346px) {
+  .HeadIcon, .FootIcon{
+    font-size: 50px;
+  }
+
+}
+
+@media (min-width: 768px) {
+  .CatalNav{
+    margin-left: 10px;
+  }
+}
+
+.content-wrap{
+
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh)*100 - 20px);
+}
+.MarginTop{
+  margin-top: 90px;
+}
+.FootIcon{
+text-decoration: none;
+color:rgb(187, 187, 187);
+}
+.footer{
+  background-color: #343a40;
+  height: auto;
+  color:rgb(187, 187, 187);
+}
+.CartCol{
+  padding-bottom: 20px;
+}
+.ZakazDiv{
+  text-align: center;
+  margin-bottom: 100px;
+}
+.CarouselMobile{
+  margin-top: 68px;
+}
+.CartDiv{
+  background-color: #c9c9c9;
+  border-radius: 15pt;
+  text-align: center;
+  width: 70%;
+  margin-left: 15%;
+}
+.hrlines{
+  width: 80%;
+  padding-left: 20%;
+}
+.ProdInfLine{
+  width: 70%;
+
+}
+.MainText{
+  font-weight: bold ;
+}
+.HrLine{
+  margin: 0;
+  padding: 0;
+
+}
+.PriceBadge{
+  background-color: #343a40;
+  padding: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 25pt;
+  color: white;
+  font-size: 17pt;
+  font-weight: bolder;
+}
+
+.plusButton,  .minusButton {
+  background-color: white;
+  border-width: 0;
+  border: 1px solid black;
+  padding: 10px;
+}
+.plusButton{
+  border-radius:0 50px  50px 0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.minusButton{
+  border-radius: 50px 0 0  50px ;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+input[type=number] {
+  -moz-appearance:textfield; /* Firefox */
+}
+.nextButtonZakaz:disabled, .nextButton:disabled{
+  border: 1px solid #535a61;
+  background-color: #535a61;
+}
+.nextButton {
+  width: 50%;
+  border-width: 0;
+  border: 1px solid #343a40;
+  background-color: #343a40;
+  padding: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 25pt;
+  color: white;
+  font-size: 12pt;
+}
+A.dot {
+  color:rgb(187, 187, 187);
+  text-decoration: none; /* Убираем подчеркивание */
+  border-bottom: 1px dashed #bbbbbb; /* Добавляем свою линию */ 
+ }
+ A.dot:hover {
+  color:rgb(134, 134, 134);
+  text-decoration: none;
+  border-bottom: 1px dashed #868686;
+ }
+
+.nextButtonZakaz{
+  border-width: 0;
+  border: 1px solid #343a40;
+  background-color: #343a40;
+  padding: 15px;
+  padding-left: 22px;
+  padding-right: 22px;
+  border-radius: 25pt;
+  color: white;
+  font-size: 12pt;
+}
+.AddToCartButt{
+  border-width: 0;
+  border: 1px solid #343a40;
+  background-color: #343a40;
+  padding: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 25pt;
+  color: white;
+  font-size: 12pt;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.InputNumber{
+  
+  border:none;
+  background-image:none;
+  background-color:transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  outline:none;
+  width: 20%;
+  border: 1px solid #343a40;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  text-align: center;
+}
+.App {
+  text-align: center;
+  
+}
+.fullLogo{
+  margin-right: 0;
+}
+.colCard:hover{
+  opacity: 0.85;
+  cursor: pointer;
+}
+Col{
+  padding: 0;
+}
+
+html{
+  overflow-x:hidden
+}
+.ProdNameDiv{
+  text-align: center;
+}
+.CarouselProd{
+  width: 100%;
+  height: auto;
+}
+
+.ProdName{
+  font-size: 25pt;
+
+}
+*{
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+.Logo{
+  font-family: 'Merriweather', sans-serif;
+  font-size: 1.8rem;
+}
+td{ 
+  border-radius: 16px;
+  box-shadow: 0 0 2px #000;}
+table, tr,td {
+  margin: auto; 
+
+ }
+
+td{
+  padding: 10px;
+}
+.CarouselDiv{
+  position: relative;
+  width: auto;
+  height: 300px;
+}
+
+.navLinks a.active {
+  background-color: #373e46 !important;
+}
+
+a.active .textNav{
+  color: white;
+}
+
+.textNav{
+  color: rgb(43, 43, 43);
+}
+.ChangeText{
+  color: #7c7c7c;
+  text-decoration:underline;
+  font-size: 12pt;
+  cursor: pointer;
+}
+
+.textHome{
+  font-size: 35pt;
+  text-align: center;
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
+.imgOrig{
+  max-width: 100%;
+  max-height: 100%;
+}
+.ButReg{
+  text-align: center;
+  margin-top: 20px;
+}
+.reg{
+  text-align: center;
+  margin-top: 100px;
+}
+
+
+.spanUpperImg{
+  font-size: 7pt;
+  color:darkgrey;
+}
+.textInHome{  
+  margin-left: 30%;
+  font-size: 30pt;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+.buttonOnCard{
+  position: absolute;
+  top: 30%;
+  left: 35%;
+}
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.priceSpan{
+  float:right;
+}
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cards:hover{
+  background-color: rgb(223, 223, 223);
+}
+
+
+.textSecond{
+  margin-top: 100px;
+}
+
+.buttonNext{
+  border: 1px;
+  margin-bottom: 10px;
+}
+.inputsPortrets{
+  text-align: center;
+  
+}
+.grayText{
+  color:dimgray;
+}
+
+
+.reqText{
+  font-size: 10pt;
+}
+
+
+
+/* Ниже стили input'ов  */
+.field__input{ 
+  --uiFieldPlaceholderColor: var(--fieldPlaceholderColor, #767676);
+  
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.field__input:focus::-webkit-input-placeholder{
+  color: var(--uiFieldPlaceholderColor);
+}
+
+.field__input:focus::-moz-placeholder{
+  color: var(--uiFieldPlaceholderColor);
+}
+.AuthIcon:hover{
+  cursor: pointer;
+}
+.fullLogo{
+  cursor: pointer;
+}
+.allLinks{
+  color:rgb(134, 134, 134);
+}
+.allLinks:hover{
+  color:rgb(78, 78, 78);
+}
+.allLinksF{
+  text-align: center;
+}
+.TagInfo{
+  color: rgb(134, 134, 134);
+}
+li{
+  margin: 6px;
+  color:darkslategray;
+  text-decoration: none;
+}
+.mainCard{
+  cursor: pointer;
+}
+.CardBody{
+  margin-left: 15px;
+  text-align: left;
+}
+.errAlrt{
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+.numb{
+  font-weight:bold;
+  font-size: 13pt;
+}
+#left-tabs-example{
+  width:400px;
+}
+/*
+=====
+CORE STYLES
+=====
+*/
+.inpReg{
+  width: 240px;
+  text-align: left;
+}
+
+.field{
+  --uiFieldBorderWidth: var(--fieldBorderWidth, 2px);
+  --uiFieldPaddingRight: var(--fieldPaddingRight, 1rem);
+  --uiFieldPaddingLeft: var(--fieldPaddingLeft, 1rem);   
+  --uiFieldBorderColorActive: var(--fieldBorderColorActive, rgba(22, 22, 22, 1));
+
+  width: 100%;
+  display: var(--fieldDisplay, inline-flex);
+  position: relative;
+  font-size: var(--fieldFontSize, 1rem);
+}
+
+.inpReg{
+  width: 240px;
+}
+.field__input{
+  box-sizing: border-box;
+  width: var(--fieldWidth, 100%);
+  height: var(--fieldHeight, 3rem);
+  padding: var(--fieldPaddingTop, 1.25rem) var(--uiFieldPaddingRight) var(--fieldPaddingBottom, .5rem) var(--uiFieldPaddingLeft);
+  border-bottom: var(--uiFieldBorderWidth) solid var(--fieldBorderColor, rgba(0, 0, 0, .25));  
+}
+
+.field__input:focus{
+  outline: none;
+}
+
+.field__input::-webkit-input-placeholder{
+  opacity: 0;
+  transition: opacity .2s ease-out;
+}
+
+.field__input::-moz-placeholder{
+  opacity: 0;
+  transition: opacity .2s ease-out;
+}
+
+.field__input:focus::-webkit-input-placeholder{
+  opacity: 1;
+  transition-delay: .2s;
+}
+
+.field__input:focus::-moz-placeholder{
+  opacity: 1;
+  transition-delay: .2s;
+}
+
+.field__label-wrap{
+  box-sizing: border-box;
+  pointer-events: none;
+  cursor: text;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.field__label-wrap::after{
+  content: "";
+  box-sizing: border-box;
+  width: 100%;
+  height: 0;
+  opacity: 0;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.field__input:focus ~ .field__label-wrap::after{
+  opacity: 1;
+}
+
+.field__label{
+  position: absolute;
+  left: var(--uiFieldPaddingLeft);
+  top: calc(50% - .5em);
+
+  line-height: 1;
+  font-size: var(--fieldHintFontSize, inherit);
+
+  transition: top .2s cubic-bezier(0.9, -0.15, 0.1, 1.15), opacity .2s ease-out, font-size .2s ease-out;
+  will-change: bottom, opacity, font-size;
+}
+
+.inpReg:disabled{color: rgb(170, 170, 170); ;}
+.field__input:focus ~ .field__label-wrap .field__label,
+.field__input:not(:placeholder-shown) ~ .field__label-wrap .field__label{
+  --fieldHintFontSize: var(--fieldHintFontSizeFocused, .75rem);
+
+  top: var(--fieldHintTopHover, .25rem);
+}
+
+
+.field_v3 .field__label-wrap::after{
+  border: var(--uiFieldBorderWidth) solid var(--uiFieldBorderColorActive);
+  will-change: opacity, height;
+  transition: height .2s ease-out, opacity .2s ease-out;
+}
+
+.field_v3 .field__input:focus ~ .field__label-wrap::after{
+  height: 100%;
+}
+
+.fields{
+  --uiFieldBorderWidth: var(--fieldBorderWidth, 2px);
+  --uiFieldPaddingRight: var(--fieldPaddingRight, 1rem);
+  --uiFieldPaddingLeft: var(--fieldPaddingLeft, 1rem);   
+  --uiFieldBorderColorActive: var(--fieldBorderColorActive, rgba(22, 22, 22, 1));
+
+  width: 100%;
+  display: var(--fieldDisplay, inline-flex);
+  position: relative;
+  font-size: var(--fieldFontSize, 1rem);
+}
+
+.inpReg{
+  width: 240px;
+}
+.orSpan{
+  text-align: center;
+  margin: auto;
+}
+#personButton{
+  padding-left: 10px;
+}
+.butLogIn{
+  margin: auto;
+  text-align: center;
+}
+.submBut{
+  padding: 0;
+}
+
+.mainBlockForm{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto; 
+
+}
+#fileInput{
+  width: 20px;
+}
+.fileInput{
+ position: relative; 
+  width: 100% ;
+  margin: auto;
+  
+}
+.title{padding: 0px;}
+.example-1 .form-group{padding:1em;margin:1em}
+.example-1 input[type=file]{
+  outline:0;
+  opacity:0;
+  pointer-events:none;
+  user-select:none}
+.example-1 .label{
+
+  border:2px dashed grey;
+  border-radius:5px;
+  display:block;
+  padding-top: 25px;
+  transition:border 100ms ease;
+  cursor:pointer;
+  text-align:center}
+.example-1 .label i{
+  display:block;
+  font-size:42px;
+  padding-bottom:16px}
+.example-1 .label i,.example-1 .label .title{
+  color:grey;
+  transition:100ms color}
+.example-1 .label:hover{
+  border:2px solid #000}
+.example-1 .label:hover i,.example-1 .label:hover .title{color:#000}
