@@ -1,7 +1,7 @@
 {   
     "items":[
         {
-            "id":1,
+            "id":0,
             "Name":"Календарь майя",
             "price":"800",
             "mainImage":"/images/mayyaCalendar.jpg",
@@ -12,7 +12,7 @@
             "dimensions":"Длина-20см, Высота-20см"
         },
         {
-            "id":2,
+            "id":1,
             "Name":"Ключница",
             "price":"1500",
             "mainImage":"/images/kluchnica.jpg",
@@ -24,7 +24,7 @@
             "dimensions":"Длина-20см, Высота-30см, Ширина-7см"
         },
         {
-            "id":3,
+            "id":2,
             "Name":"Деревянный меч",
             "price":"950",
             "mainImage":"/images/woodSword.jpg",
@@ -37,7 +37,7 @@
             "dimensions":"Длина-30см, Высота-4см, Ширина-7см"
         },
         {
-            "id":4,
+            "id":3,
             "Name":"Очешник",
             "price":"700",
             "mainImage":"/images/Ocheshnik.jpg",
@@ -48,7 +48,7 @@
             "dimensions":"Длина-10см, Высота-5см, Ширина-7см"
         },
         {
-            "id":5,
+            "id":4,
             "Name":"Копилка",
             "price":"1350",
             "mainImage":"/images/Kopilka.jpg",

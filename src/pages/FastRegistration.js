@@ -130,7 +130,7 @@ export default class FastRegistration extends Component {
                         </label>
                         <br/>
                         <div className='ButReg'>
-                        <Button  variant="secondary" className='text-center' disabled = {this.isDisabled()} onClick = {this.infCheck}>Зарегистрироваться</Button>
+                        <button className='nextButtonZakaz mb-2 text-center' disabled = {this.isDisabled()} onClick = {this.infCheck}>Зарегистрироваться</button>
                         </div>
                         <div><br/>{this.state.error}</div>
                     </Col>

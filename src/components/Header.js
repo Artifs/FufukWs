@@ -21,6 +21,7 @@ class Header extends Component {
             loggedIn: false,
             sended:false,
             msgOnNav:'nul',
+            expanded:false
             
         }
         this.isDisabled = this.isDisabled.bind(this);
@@ -80,6 +81,7 @@ Auth = (e) => {
         }
 
         Flip = (e) => {
+            this.setState({expanded:false})
              if(this.state.loggedIn){
                 this.props.history.push ('/Account')
              }else{
@@ -93,9 +95,9 @@ Auth = (e) => {
                 return false
             }
         }
-        handleCartClick = (e) => {
-            this.props.history.push ('/Cart')
-        }
+        // handleCartClick = (e) => {
+        //     this.props.history.push ('/Cart')
+        // }
 
 
     
@@ -120,13 +122,13 @@ Auth = (e) => {
                 <div className = 'errAlrt'>{this.state.err}</div>
                 
                 <div className='butLogIn mt-2'>
-                <Button type="submit" variant="secondary" onClick = {this.Auth}>Войти</Button>
+                <button type="submit" className='nextButtonZakaz' onClick = {this.Auth}>Войти</button>
                 </div>
                 <div className='orSpan mt-2'><AiOutlineMinus/>или<AiOutlineMinus/></div>
                 <div className='butLogIn mt-2'>
                 <Nav className = "mr-auto">
                 <LinkContainer to = '/FastRegistration'>
-                    <Button variant="secondary" className = "mb-2" onClick = {this.hanleOnClick}>Быстрая регистрация</Button>
+                    <button className='nextButtonZakaz mb-2' onClick = {this.hanleOnClick}>Быстрая регистрация</button>
                 </LinkContainer>
                 </Nav>
                 </div>
@@ -157,41 +159,52 @@ Auth = (e) => {
                         } 
                     }}
                 </UserContext.Consumer>
-                <Navbar fixed='top' collapseOnSelect expand = "md" bg="dark" variant = "dark">
+                <Navbar fixed='top' collapseOnSelect expand = "md" bg="light" variant = "light" expanded = {this.state.expanded}>
                     <Container>
-                        <Navbar.Brand className='fullLogo' style={{marginRight:'0px'}} onClick ={(e) => {this.props.history.push ('/')}}>
+                        <Navbar.Brand className='fullLogo' style={{marginRight:'0px'}} onClick ={(e) => {this.props.history.push ('/')
+                        this.setState({expanded:false})}}>
                             <img 
                             src = {logo}
-                            height = "43"
-                            width = "25"
+                            height = "47"
+                            width = "30"
                             className = "d-inline-block align-top"
                             alt = "Logo"
-                            /> <span className = "Logo">FufukWS</span>
+                            /> 
                         </Navbar.Brand>
                         <Breakpoint customQuery="(max-width: 766px)">
                             <OverlayTrigger  show={this.isDisabled()} trigger="click" placement="bottom" overlay={popover} className = 'AuthIcon' >
-                                <BsPersonFill className='HeadIcon' id = 'personButton' variant="success" cursor = "pointer" onClick={this.Flip}/>
+                                <BsPersonFill className='HeadIcon' id = 'personButton' variant="success" cursor = "pointer" onClick={this.Flip }/>
                             </OverlayTrigger>
-                            <AiOutlineShoppingCart  className='mr-1 HeadIcon' id = 'personButton' variant="success" cursor = "pointer" onClick={this.handleCartClick}/>
-                        </Breakpoint>         
-                        <Navbar.Toggle aria-controls = "responsive-navbar-nav" />
-                        <Navbar.Collapse id="responsive-navbar-nav">
-                            <Nav className = "mr-auto allLinks">
-                            <LinkContainer to = '/Catalog' className='CatalNav'>
-                                <Nav.Link><span className='allLinks'>Каталог</span></Nav.Link>
+                            <LinkContainer to='/Cart' onClick={() => {this.setState({expanded:false})}}>
+                                <AiOutlineShoppingCart className='HeadIcon'  id = 'personButton' variant="success" cursor = "pointer" onClick={this.handleCartClick}/>
                             </LinkContainer>
-                            <LinkContainer to = '/ZakazPortreta'>
-                                <Nav.Link><span className='allLinks'>Заказать портрет</span></Nav.Link>
+                            </Breakpoint>         
+                        <Navbar.Toggle aria-controls = "responsive-navbar-nav" color='dark' onClick={(e) => {this.setState({expanded: !this.state.expanded })}} />
+                        <Navbar.Collapse  id="responsive-navbar-nav">
+                            <Nav className = "ml-4 mr-auto allLinks" >
+                            <Nav.Item>
+                            <LinkContainer onClick={() => {this.setState({expanded:false})}}  to = '/Catalog' className='CatalNav' >
+                                <Nav.Link><span className='ml-3 mr-3 allLinks'>Каталог</span></Nav.Link>
                             </LinkContainer>
-                            <LinkContainer to = '/FAQ'>
-                                <Nav.Link><span className='allLinks'>FAQ</span></Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                            <LinkContainer onClick={() => {this.setState({expanded:false})}} to = '/ZakazPortreta'>
+                                <Nav.Link><span className='ml-3 mr-3 allLinks'>Заказать портрет</span></Nav.Link>
                             </LinkContainer>
+                            </Nav.Item>
+                            <Nav.Item>
+                            <LinkContainer onClick={() => {this.setState({expanded:false})}} to = '/FAQ'>
+                                <Nav.Link ><span className='ml-3 mr-3 allLinks' >FAQ</span></Nav.Link>
+                            </LinkContainer>
+                            </Nav.Item>
                             </Nav>
                             <Breakpoint customQuery="(min-width: 765px)">
                                 <OverlayTrigger  show={this.isDisabled()} trigger="click" placement="bottom" overlay={popover} className = 'AuthIcon' >
                                     <BsPersonFill className='HeadIcon' id = 'personButton' variant="success" cursor = "pointer" onClick={this.Flip}/>
                                 </OverlayTrigger>
-                            <AiOutlineShoppingCart className='HeadIcon'  id = 'personButton' variant="success" cursor = "pointer" onClick={this.handleCartClick}/>
+                            <LinkContainer to='/Cart'>
+                                <AiOutlineShoppingCart className='HeadIcon'  id = 'personButton' variant="success" cursor = "pointer" onClick={this.handleCartClick}/>
+                            </LinkContainer>
                             </Breakpoint>
                             </Navbar.Collapse>
                             </Container>

@@ -49,39 +49,27 @@ export default function Product(props) {
             return (<div></div>)
         }
         let id = [props.location.state.id]
+
+        //const item = itemList.items.find(id)
+        itemList.items.find((e) => {
+            if(e.id == id && tovar ==''){
+                setTovar(e)
+                return 
+            }
+        })
     if (Count > 10){
         setCount(10)
     }else if(Count < 1){
         setCount(1)
     }else if (Count)
-    if (tovar == '' ){
-    return (
-        <div>
-            
-            {
-                JSON.stringify(catalog, function (key, value){
-                    for (let i in value){
-                        if (value[i].id == id && tovar == ''){
-                            setTovar(value[i])
-                            
-                            return
-                        }
-                    }
-                    
-                })
-                
-            }
-            
-        </div>
-    )
-    }else{
-
+    if (tovar != ''){
         return (
             <div className='MarginTop mb-5'>
                 <UserContext.Consumer>
                     {(value) =>{
                         if(addCart === true){
-                            value.setUserCart((p) => ({ ...p, cart:[ ...value.userCart.cart , [tovar.Name , Count, tovar.price]] }))
+                            value.setUserCart((p) => ({ ...p, cart:[ ...value.userCart.cart , [tovar.id , Count]] }))
+                            value.setFilesPortret((p) => ({ ...p, filesPortret:[ ...value.filesPortret.filesPortret , ['notFile']] }))
                             setAddCart(false)
                         }
                     }
@@ -161,6 +149,4 @@ export default function Product(props) {
             </div>
         )
     }
-
-
 }

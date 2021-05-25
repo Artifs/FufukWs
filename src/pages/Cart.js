@@ -1,6 +1,8 @@
 import React, { useState,useEffect, useContext } from 'react'
 import { UserContext } from "../App";
 import { Container,Row,Col } from 'react-bootstrap';
+import itemList from '../catalog.json'
+import axios from 'axios'
 
 
 export default function Cart(props) {
@@ -19,9 +21,9 @@ export default function Cart(props) {
     const [Apartmets, setApartmets] = useState('')
     const [addictionalNote, setAddictionalNote] = useState('-')
     const [cart, setCart] = useState([])
+    const [tovar, setTovar] = useState([])
     let Summ = 0
 
-    // продумать отправку заказа на сервер, так-же подумать, как принимать формат портрета
 
     useEffect(() => {
         if(userState.isLoggedIn === true && email === ''){
@@ -47,8 +49,72 @@ export default function Cart(props) {
 
             })
         }
+        
          setCart(userCart.cart) 
+         userCart.cart.find((x) => {
+            let s  = x[1]
+            itemList.items.find((e) => {
+                if (e.id == x[0]){
+                    
+                    setTovar ((oldItems) => [...oldItems, [e,s]])
+                }
+            })
+            if( x[0] == 999){
+                setTovar ((oldItems) => [...oldItems, [x]])
+            }
+        }
+        )
+
     }, []);
+    const sendCart = (e) =>{
+        let f = 1
+        let names = ''
+        // console.log(tovar)
+        // console.log(userCart.cart)
+        // console.log(filesPortret.filesPortret)
+        var form = new FormData()
+        form.append('Order', true);
+        form.append('email', email);
+        form.append('name', name);
+        form.append('secName', secName);
+        form.append('lastName', lastName);
+        form.append('indexCity', indexCity);
+        form.append('Country', Country);
+        form.append('City', City);
+        form.append('Region', Region);
+        form.append('Apartmets', Apartmets);
+        form.append('summ', Summ);
+        form.append('addictionalNote',addictionalNote)
+        tovar.map((el,t) => {
+            if(el.length > 1){
+                names = names+el[0].Name+','+el[1]+","
+            }else{
+                names = names+'Портрет А'+el[0][1]+','
+            }
+            // console.log(el[0])
+            // console.log(el[1])
+        })
+        console.log(names)
+        form.append('tovar', names);
+        filesPortret.filesPortret.map((el,i) => {
+            //console.log(el[0])
+            if(el[0] != 'notFile'){
+                form.append('files'+f, el[0])
+                f++
+                //console.log(form)
+            }
+            // for(var pair of form.entries()) {
+            //     console.log(pair[0]);
+            //     console.log(pair[1]);
+            
+            //  }
+        })
+        
+        axios.post('http://localhost/projects/server/index.php', form)
+        .then((response) => {
+            console.log(response)
+        })
+    }
     const isDisabled = (e) => {
         if (email !== '' && name !== '' && secName !== '' && lastName !== '' && indexCity !== '' && Country !== '' && City !== '' && Region !== '' && Apartmets !== '' && cart != ''){
             return false
@@ -56,6 +122,24 @@ export default function Cart(props) {
             return true
         }
     }
+    let is = 0
+    const deleteItem = (e) => {
+        setTovar(tovar.filter((item, i) => i !== e))
+        let a  = userCart.cart.splice(e,1)
+        let b = filesPortret.filesPortret.splice(e,1)
+    }
+
+    if (cart == '') {
+            return (
+                <> <div className='text-center'>
+                <br/>
+                <br/>
+                <br/>
+                <h4 className='mt-5'>Ваша корзина пуста</h4>
+                </div></>
+            )
+        }else{
+        
         return (
             <div>
  
@@ -147,7 +231,7 @@ export default function Cart(props) {
                     <span className="field__label">Дополнительные примечания</span>
                     </span>
                     </label>
-                    <button className='nextButton mt-4' disabled = {isDisabled()} onClick = {(e) => {console.log(filesPortret)}}>Далее</button>
+                    <button className='nextButton mt-4' disabled = {isDisabled()} onClick = {sendCart}>Далее</button>
                     </Col>
                     <Col className='CartCol'>
                     {cart.length >= 1 && 
@@ -160,34 +244,69 @@ export default function Cart(props) {
                         <br/>
                         </div>}
                         {
-                            cart.map(el => (
-                                <div className='mb-2'>
-                                    <div className='s'><span className='MainText'>{el[0]}</span></div> 
-                                    Количество: <span className='MainText'>{el[1]}</span> <br/>
-                                    <span className='MainText'>{el[1]*el[2]} RUB</span>
-                                    <div className='hrlines'><hr className='HrLine mt-2'/></div>
-                                </div>
+                            tovar.map((el,i) => {
+                                if(el.length>1){
                                 
-                            ))
+                                return(
+                                <>
+                                <Row className='mb-2' xs = {2} sm ={2} md = {2} lg={2} xl={2}>
+                                    <Col xs = {9} sm ={9} md = {9} xl = {9} lg ={9} className='CartInf'>
+                                    <div ><span className='MainText'>{tovar[i][0].Name}</span></div> 
+                                    Количество: <span className='MainText'>{tovar[i][1]}</span> <br/>
+                                    <span className='MainText'>{tovar[i][0].price} RUB</span>
+                                    </Col>
+                                    <Col xs = {3} sm ={3} md = {3} lg={3} xl={3}>
+                                    <div className='deleteBut'><button className='deleteButton' onClick={(e) => {deleteItem(i)}}>X</button></div>
+                                    </Col>
+                                    </Row>
+                                    <div className='hrlines'><hr className='HrLine mt-2'/></div>
+                                
+                                </>
+                                )}else{
+                                    return(
+                                        <>
+                                    <Row className='mb-2' xs = {2} sm ={2} md = {2} lg={2} xl={2}>
+                                    <Col xs = {9} sm ={9} md = {9} xl = {9} lg ={9} className='CartInf'>
+                                    <div ><span className='MainText'>Портрет</span></div> 
+                                    Формат: <span className='MainText'>A{el[0][1]}</span> <br/>
+                                    <span className='MainText'>{el[0][2]} RUB</span>
+                                    </Col>
+                                    <Col xs = {3} sm ={3} md = {3} lg={3} xl={3}>
+                                    <div className='deleteBut'><button className='deleteButton' onClick={(e) => {deleteItem(i)}}>X</button></div>
+                                    </Col>
+                                    </Row>
+                                    <div className='hrlines'><hr className='HrLine mt-2'/></div>
+                                    </>
+                                    )}
+                            })
                             
                         }
                         
                         </div>
                         {
-                            cart.map(el => {
-                               Summ = Summ +(el[1]*el[2]) 
-                            })
+                            
+                            tovar.map((el,i) => {
+                            if(el.length>1){
+                                Summ = Summ + (Number(tovar[i][0].price) * tovar[i][1])
+                            }else{
+                                Summ = Summ + el[0][2]
+                            }
+                        })
+
                         }
-                        {cart.length >= 1 && 
-                        <h3 className='mb-5'>Сумма: {Summ} RUB
-                        </h3>}
+
+                        {
+                            cart.length >= 1 && 
+                            <h3 className='mb-5'>Сумма: {Summ} RUB</h3>
+                        }
                     </Col>
                     </Row>
                 </Container>
                 
                 </div>
                 </div>
-    )
+        )
+        
 }
 
-
+}

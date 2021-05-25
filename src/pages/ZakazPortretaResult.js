@@ -1,68 +1,67 @@
-import React, { Component } from 'react'
-import {withRouter} from 'react-router'
+import React, { useState } from 'react'
 import { UserContext } from "../App";
+import { useAlert } from "react-alert";
+import { useHistory } from "react-router-dom";
 
-class ZakazPortretaResult extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            choosen: this.props.location.state.choosen,
-            imgUpload: this.props.location.state.imgUpload,
-            file: this.props.location.state.file,
-            email:'',
-            clicked: false,
-            addCart:false,
-            price: 0
-        }
-        this.HundleCheck = this.HundleCheck.bind(this);
-    }
-    isDisabled = (e) => {
-        if (this.state.clicked === true){
+
+export default function ZakazPortretaResult(props) {
+    const [choosen, setChoosen] = useState(props.location.state.choosen)
+    const [imgUpload, setImgUpload] = useState(props.location.state.imgUpload)
+    const [file, setFile] = useState(props.location.state.file)
+    const [clicked, setClicked] = useState(false)
+    const [addCart, setAddCart] = useState(false)
+    const [price, setPrice] = useState(0)
+    const alert = useAlert();
+    const history = useHistory();
+    
+    const isDisabled = (e) => {
+        if (clicked === true){
             return true
         }else{
             return false
         }
     }
 
-        HundleCheck = (e) => {
-            this.setState({clicked:true,addCart:true});
+    const HundleCheck = (e) => {
+            setClicked(true)
+            setAddCart(true)
+            alert.success('Товар успешно добавлен в корзину');
+            //history.push('/Cart')
         }
-    render() {
-        if (this.state.price === 0 && this.state.choosen === 4){
-            this.setState({price:1500})
-        }else if (this.state.choosen === 3 && this.state.price === 0){
-            this.setState({price:2000})
-        }else if (this.state.choosen === 2  && this.state.price === 0){
-            this.setState({price:3000})
+        if (price === 0 && choosen === 4){
+            setPrice(1500)
+        }else if (choosen === 3 && price === 0){
+            setPrice(2000)
+        }else if (choosen === 2  && price === 0){
+            setPrice(3000)
         }
         return (
             <div className="mb-5 MarginTop" >
                  <UserContext.Consumer>
                     {(value) =>{
-                        if(this.state.addCart === true){
-                            value.setUserCart((p) => ({ ...p, cart:[ ...value.userCart.cart , ['Портрет A'+this.state.choosen , 1, this.state.price]] }))
-                            value.setFilesPortret((p) => ({ ...p, filesPortret:[ ...value.filesPortret.filesPortret , [this.state.file, this.state.choosen]] }))
-                            this.setState({addCart:false});
+                        if(addCart === true){
+                            value.setUserCart((p) => ({ ...p, cart:[ ...value.userCart.cart , [999 ,choosen , price,1]] }))
+                            value.setFilesPortret((p) => ({ ...p, filesPortret:[ ...value.filesPortret.filesPortret , [file, choosen]] }))
+                            setAddCart(false)
                         }
                     }
                 } 
                 </UserContext.Consumer>
                 <h2 className='textSecond text-center' >Подтвердите формат и изображение портрета</h2>
                 <h5 className='mb-5 text-center'>
-                    <button className='nextButtonZakaz mt-3' disabled = {this.isDisabled()} onClick={this.HundleCheck}>Добавить в корзину</button>
+                    <button className='nextButtonZakaz mt-3' disabled = {isDisabled()} onClick={HundleCheck}>Добавить в корзину</button>
                     </h5>
                     <h4 className='text-center'>
                         <table >
-                                <td>Формат портрета:</td> <td>A{this.state.choosen}</td> 
+                                <td>Формат портрета:</td> <td>A{choosen}</td> 
                         </table>
                         <br/>
                         Ваше изображение:<br/><br/>
-                        <img src = {this.state.imgUpload} className = "imgOrig" />
+                        <img src = {imgUpload} className = "imgOrig" />
                     </h4>
             </div>
         )
     }
-}
 
 
-export default withRouter(ZakazPortretaResult);
+

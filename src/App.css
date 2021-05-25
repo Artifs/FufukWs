@@ -6,8 +6,59 @@
     float: left;
   }
 }
- 
+@media (max-width: 509px){
+  .tagCaption{
+    font-size: 13pt;
+  }
+  .UndtagCaption{
+    font-size: 7pt;
+  }
+}
+
+@media (max-width: 418px){
+  .tagCaption{
+    font-size: 10pt;
+  }
+  .UndtagCaption{
+    font-size: 5pt;
+  }
+}
+
+@media (min-width: 510px){
+  .tagCaption{
+    font-size: 20pt;
+  }
+  .UndtagCaption{
+    font-size: 10pt;
+  }
+}
+
+@media (max-width: 991px) {
+  .deleteBut{
+    margin-top: 30%;
+    margin-right: 50px;
+}
+}
+@media (min-width: 1250px){
+  .ImgCarousel{
+     height: 750px; 
+  }
+}
+
+@media (min-width: 992px) {
+  .deleteBut{
+    margin-top: 45%;
+    margin-right: 50px;
+}
+
+}
  @media (max-width: 767px)  {
+   .textHome{
+     margin-top: 20%;
+   }
+   .deleteButton{
+     padding-right: 15px;
+   }
   .DivPrice{
     margin-top: 20px;
     text-align: center;
@@ -18,6 +69,13 @@
   .RowCountAndCart{
     text-align: center;
   }
+  .ProdInfLine{
+    margin-left: 15%;
+  }
+  .CarouselImg{
+    min-height: 400px;
+    min-width: 400px;
+  }
 } 
 
 @media (max-width: 380px) {
@@ -25,7 +83,10 @@
     min-height: 250px;
     min-width: 250px;
   }
-  
+  .deleteBut{
+    margin-top: 70%;
+    margin-right: 50px;
+}
 }
 
 @media (min-width: 381px) {
@@ -67,6 +128,20 @@
     margin-right: 0;
   }
 }
+@media (min-width: 576) {
+  .CardBody{
+    text-align: left;
+  }
+
+}
+@media (max-width: 575px) {
+  .HistoryOrders{
+    text-align: center;
+  }
+  .CardBody{
+    text-align: center;
+  }
+}
 
 @media (min-width: 399px) and (max-width: 575px) {
   .PriceBadge{
@@ -75,20 +150,17 @@
   
 }
 
-/* Landscape phones and portrait tablets */
-@media (max-width: 767px) {
-  .CarouselImg{
-    min-height: 400px;
-    min-width: 400px;
-  }
-  
-}
 
 /* Portrait phones and smaller */
 @media (max-width: 480px) {
   .CarouselImg{
     min-height: 250px;
     min-width: 250px;
+  }
+}
+@media (max-width: 1199px) and (min-width:992px) {
+  .deleteButton{
+    padding-right: 15px;
   }
 }
 
@@ -111,7 +183,25 @@
     margin-left: 10px;
   }
 }
-
+.LogoOnSlider{
+  font-size: 140pt;
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  color: white;
+}
+.boldText{
+  font-weight: bolder;
+}
+.deleteButton{
+  width: 100%;
+  border-width: 0;
+  border: 1px solid #343a40;
+  background-color: #343a40;
+  border-radius: 25pt;
+  color: white;
+  font-size: 12pt;
+}
 .content-wrap{
 
   min-height: 100vh;
@@ -147,13 +237,14 @@ color:rgb(187, 187, 187);
   margin-left: 15%;
 }
 .hrlines{
-  width: 80%;
-  padding-left: 20%;
+  width: 90%;
+  padding-left: 10%;
 }
 .ProdInfLine{
   width: 70%;
 
 }
+
 .MainText{
   font-weight: bold ;
 }
@@ -299,7 +390,7 @@ html{
   display: none;
 }
 .Logo{
-  font-family: 'Merriweather', sans-serif;
+  font-family: 'Dancing Script', cursive;
   font-size: 1.8rem;
 }
 td{ 
@@ -342,6 +433,7 @@ a.active .textNav{
   text-align: center;
   padding-bottom: 50px;
   padding-top: 50px;
+
 }
 .imgOrig{
   max-width: 100%;
@@ -483,10 +575,7 @@ li{
 .mainCard{
   cursor: pointer;
 }
-.CardBody{
-  margin-left: 15px;
-  text-align: left;
-}
+
 .errAlrt{
   text-align: center;
   padding: 0;

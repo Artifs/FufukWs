@@ -15,10 +15,10 @@ export default class Uhod extends Component {
                         <Col sm={3}>
                         <Nav variant="pills" className="flex-column mb-5 navLinks">
                             <Nav.Item>
-                            <Nav.Link eventKey="first"><span className='textNav'>Уход</span></Nav.Link>
+                            <Nav.Link eventKey="first" style={{padding:'.3rem 1.9rem', borderRadius:'20pt'}}><span className='textNav'>Уход</span></Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                            <Nav.Link eventKey="second"><span className='textNav'>Общие вопросы</span></Nav.Link>
+                            <Nav.Link eventKey="second" style={{padding:'.3rem 1.9rem', borderRadius:'20pt'}}> <span className='textNav'>Общие вопросы</span></Nav.Link>
                             </Nav.Item>
                         </Nav>
                         </Col>

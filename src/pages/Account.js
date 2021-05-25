@@ -20,6 +20,7 @@ export default function Account(props) {
     const [spanText, setSpanText] = useState('Изменить')
     const [ChangingSec, setChangingSec] = useState(false)
     const [Changing, setChanging] = useState(false)
+    const [HistoryOrders, setHistoryOrders] = useState([])
     const history = useHistory();
     const alert = useAlert();
 
@@ -49,6 +50,22 @@ export default function Account(props) {
             } 
         }else if (userEmail.email === '' && userState.isLoggedIn === false){
             history.push ('/')
+        }
+        if(HistoryOrders ==''){
+            var form = new FormData()
+            form.append('email', userEmail.email);
+            form.append('HistoryOrders',true);
+            fetch("http://localhost/projects/server/index.php",{
+                method: 'POST',
+                body: form
+            })
+            .then(response => response.text())
+            .then(response => {
+                console.log(response)
+                const a = response.split(',');
+                setHistoryOrders(a);
+                console.log(a)
+            })
         }
      }, [])
 
@@ -144,7 +161,9 @@ export default function Account(props) {
             history.push ('/')
         
     }
-
+    const isValidDate = (date) => {
+        return date && Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date);
+      }
 
         return (
             <div>
@@ -160,18 +179,21 @@ export default function Account(props) {
                         <Col  sm={3}>
                         <Nav variant="pills" className="flex-column navLinks">
                             <Nav.Item >
-                            <Nav.Link  eventKey="first" style={{padding:'.3rem 1.9rem'}}><span className='textNav'>Личные данные</span></Nav.Link>
+                            <Nav.Link  eventKey="first" style={{padding:'.3rem 1.9rem', borderRadius:'20pt'}}><span className='textNav'>Личные данные</span></Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                            <Nav.Link eventKey="second" style={{padding:'.3rem 1.9rem'}}><span className='textNav'>Мои заказы</span></Nav.Link>
+                            <Nav.Link eventKey="second" style={{padding:'.3rem 1.9rem', borderRadius:'20pt'}}><span className='textNav'>Мои заказы</span></Nav.Link>
                             </Nav.Item>
-                            <Button  variant='dark' className ='mt-5 mb-5' onClick={LogOut}>Выйти из аккаунта</Button>
+                            <button className='nextButtonZakaz mt-5 mb-5' onClick={LogOut}>Выйти из аккаунта</button><br/>
+
                         </Nav>
                         </Col>
                         <Col sm={9}>
                         <Tab.Content>
                             <Tab.Pane eventKey="first">
                                 <h3>Персональные данные <span className='ChangeText' onClick={Flip}>{spanText}</span></h3><br/>
+                                
+
                                 <Container>
                                 <Row>
                                     <Col>Имя<br/><label className="field field_v3 inpReg">
@@ -203,7 +225,7 @@ export default function Account(props) {
                                 </Row>
                                 </Container>
                                 <br/>
-                                <Button className='mb-3 mr-2' variant='dark'disabled={isDisabled()} onClick={savePersData}>Сохранить</Button><br/>
+                                <button className='nextButtonZakaz mb-3 mr-2' disabled={isDisabled()} onClick={savePersData}>Сохранить</button><br/>
                                 
                                 <h3>Адрес достави <span className='ChangeText' onClick={FlipSec}>{spanTextSec}</span></h3><br/>
                                 <Container>
@@ -242,11 +264,52 @@ export default function Account(props) {
                                 </Row>
                                 </Container>
                                 <br/>
-                                <Button className='mb-3' variant='dark'disabled={isDisabledSec()} onClick={saveAdressPers}>Сохранить</Button><br/>
+                                <button className='nextButtonZakaz mb-3' disabled={isDisabledSec()} onClick={saveAdressPers}>Сохранить</button><br/>
+
+                                <br/>
                             </Tab.Pane>
-                            <Tab.Pane eventKey="second"><div className='CardBody mb-4'>
-                            <span className='numb'><h3>История заказов</h3></span><br/>
-                           </div>
+                            <Tab.Pane eventKey="second">
+                                <Row xs={1} sm ={1} md = {1} lg={1} xl={1}>
+                                    <Col>
+                                <div className='CardBody mb-4 '>
+                                    <span className='numb'><h3>История заказов</h3></span><br/>
+                                </div>
+                                </Col>
+                                <Col className='HistoryOrders'>
+                                { 
+                                    HistoryOrders.map((el,i) => {
+                                        if (el != ''){
+                                            if (!isNaN(el)){
+                                                return(
+                                                    <span>
+                                                        Кол-во <span className='boldText'>{el}</span> <br/>
+                                                    </span>
+                                                )
+                                            }else if (el.includes('Портрет')){
+                                                return(
+                                                    <span>
+                                                        <span className='boldText'>{el}</span> <br/>
+                                                    </span>
+                                                )
+                                            }else if ((!isNaN(Date.parse(el ) ))){
+                                                console.log( el ) 
+                                                return(
+                                                    <span>
+                                                        <span className='boldText'>{el}</span> <br/> <br/>   
+                                                    </span>
+                                                )
+                                            }else{
+                                                return(
+                                                    <span>
+                                                        <span className='boldText'>{el}</span>&nbsp; -&nbsp; 
+                                                    </span>
+                                                )
+                                            }
+                                        }
+                                    })
+                                }
+                                </Col>
+                                </Row>
                             </Tab.Pane>
                         </Tab.Content>
                         </Col>
