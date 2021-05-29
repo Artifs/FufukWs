@@ -555,6 +555,9 @@ a.active .textNav{
 .fullLogo{
   cursor: pointer;
 }
+.allLinks2{
+  color:rgb(134, 134, 134);
+}
 .allLinks{
   color:rgb(134, 134, 134);
 }

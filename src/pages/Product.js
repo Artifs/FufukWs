@@ -7,23 +7,21 @@ import { UserContext } from "../App";
 import { useAlert } from "react-alert";
 
 export default function Product(props) {
-    const [timedId, setTimedId] = useState(null)
+    const [timedId, setTimedId] = useState('')
     const [Count, setCount] = useState(1)
     const [addCart, setAddCart] = useState()
+    const [Slide, setSlide] = useState()
     const [catalog, setCatalog] = useState([])
     const [tovar, setTovar] = useState([])
     const [recomendation, setRecomendation] = useState([])
     const alert = useAlert();
     const history = useHistory();
-    const location = {
-        pathname: '/Product2',
-        state:{
-            id: timedId
-        }
-    }
 
+    let id = 0
     useEffect(() => {
+    
         setCatalog(itemList.items)
+    
         while (true) {
             const min = 1;
             const max = itemList.items.length;
@@ -34,35 +32,61 @@ export default function Product(props) {
             }
         }
         
+        
      }, [])
+     if (props.location.state === undefined){
+        history.push('/')
+        return (<div></div>)
+    }
+
+    if ( id !== 0 && props.location.state.id === 0 ){
+        id = 0
+    }
+    else if(timedId === '' && props.location.state.id !== '' && id != props.location.state.id){
+        id = props.location.state.id
+    }
+    else if (timedId != '' && id != timedId){
+        id = timedId
+    }
+    itemList.items.find((e) => {
+        if(e.id == id && tovar ==''){
+            setTovar(e)
+            return 
+        }
+    })
+
+    // const location = {
+    //     pathname: '/Product2',
+    //     state:{
+    //         id: timedId
+    //     }
+    // }
+    //console.log(timedId)
+
+
+    // console.log(props.location.state.id)
+    // console.log(id)
+    // console.log(timedId)
+    
 
      const AddToCart = (e) => {
         setAddCart(true)
         alert.success('Товар успешно добавлен в корзину');
      }
 
-    if (location.state.id === timedId && timedId !== null){
-        history.push(location)
-    }
-    if (props.location.state === undefined){
-            history.push('/')
-            return (<div></div>)
-        }
-        let id = [props.location.state.id]
+    // if (location.state.id === timedId && timedId !== null){
+    //     history.push(location)
+    // }
+
 
         //const item = itemList.items.find(id)
-        itemList.items.find((e) => {
-            if(e.id == id && tovar ==''){
-                setTovar(e)
-                return 
-            }
-        })
+
     if (Count > 10){
         setCount(10)
     }else if(Count < 1){
         setCount(1)
-    }else if (Count)
-    if (tovar != ''){
+    }
+    if (tovar != '' && id !== '' && tovar.id == id){
         return (
             <div className='MarginTop mb-5'>
                 <UserContext.Consumer>
@@ -148,5 +172,19 @@ export default function Product(props) {
                 
             </div>
         )
+    }else{
+        return(
+            <>
+            {
+                itemList.items.find((e) => {
+                    if(e.id == id){
+                        setTovar(e)
+                        return(<div> </div>)
+                    }
+                })
+            }
+            </>
+        )
+        
     }
 }

@@ -38,6 +38,7 @@ export default class FastRegistration extends Component {
                 this.setState({error:'Почта уже зарегистрированна'})
             }else{
                 this.setState({error:'Возникла неизвестная ошибка, обратитесь в тех. поддержку или попробуйте позже'})
+                console.log(response)
             }
             
         })

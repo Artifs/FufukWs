@@ -1,55 +1,44 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import itemList from '../catalog.json'
-import { Container,Row,Col } from 'react-bootstrap';
+import { Container,Row,Col,Card } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
 import Carousel from 'react-bootstrap/Carousel';
 import { UserContext } from "../App";
 import { useAlert } from "react-alert";
 
-export default function Product2(props) {
+
+export default function Tovar(props) {
+    const id = props.match.params.id;
+    
+    const { userCart, setUserCart } = useContext(UserContext)
+    const { filesPortret, setFilesPortret } = useContext(UserContext)
     const [Count, setCount] = useState(1)
-    const [catalog, setCatalog] = useState([])
+    const [addCart, setAddCart] = useState()
     const [tovar, setTovar] = useState([])
-    const [addCart, setAddCart] = useState(false)
-    const history = useHistory();
     const alert = useAlert();
-    useEffect(() => {
-        setCatalog(itemList.items)
-     }, [])
+    const history = useHistory();
+    
     const AddToCart = (e) => {
-        setAddCart(true)
+        setUserCart((p) => ({ ...p, cart:[ ...userCart.cart , [tovar.id , Count]] }))
+        setFilesPortret((p) => ({ ...p, filesPortret:[ ...filesPortret.filesPortret , ['notFile']] }))
         alert.success('Товар успешно добавлен в корзину');
     }
-    if (props.location.state === undefined){
-            history.push('/')
-            return (<div></div>)
-        }
-    let id = [props.location.state.id]
+    if (Count > 10){
+        setCount(10)
+    }else if(Count < 1){
+        setCount(1)
+    }
     itemList.items.find((e) => {
         if(e.id == id && tovar ==''){
             setTovar(e)
             return 
         }
     })
-    if (Count > 10){
-        setCount(10)
-    }else if(Count < 1){
-        setCount(1)
-    }else if (Count)
-    if (tovar != '' ){
-        return (
-            <div className='MarginTop mb-5'>
-                <UserContext.Consumer>
-                    {(value) =>{
-                        if(addCart === true){
-                            value.setUserCart((p) => ({ ...p, cart:[ ...value.userCart.cart , [tovar.Name , Count, tovar.price]] }))
-                            value.setFilesPortret((p) => ({ ...p, filesPortret:[ ...value.filesPortret.filesPortret , ['notFile']] }))
-                            setAddCart(false)
-                        }
-                    }
-                } 
-                </UserContext.Consumer>
-                <Container>
+
+    if(tovar != ''){
+    return (
+        <div className='MarginTop '>
+             <Container>
                 <Row> 
                     <Col>
                     <div className = 'ProdNameDiv mb-5' >
@@ -70,7 +59,7 @@ export default function Product2(props) {
                                     </Carousel.Item>
                                 ))
                             }
-                            </Carousel>
+                            </Carousel> 
                         </Col>
                         <Col>
                             <div className='mb-5 DivPrice'><span className='PriceBadge m-2 '>{tovar.price} RUB</span></div>
@@ -91,15 +80,11 @@ export default function Product2(props) {
                             </Row>
                         </Col>
                         </Row>
-                      
+                        
                 </Container>
-                            
-
-
-                
-            </div>
-        )
-    }
-
-
+        </div>
+    )
+}else{
+    return(<></>)
+}
 }

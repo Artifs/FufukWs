@@ -12,7 +12,7 @@ import ZakazPortretaSecond from './pages/ZakazPortretaSecond';
 import ZakazPortretaResult from './pages/ZakazPortretaResult';
 import Account from './pages/Account';
 import Product from './pages/Product';
-import Product2 from './pages/Product2';
+import Tovar from './pages/Tovar';
 import FAQ from './pages/FAQ';
 import Cart from './pages/Cart';
 import { withRouter} from 'react-router-dom';
@@ -33,8 +33,7 @@ function Routes() {
         <Route  path = "/FastRegistration" component = {FastRegistration}/> 
         <Route  path = "/Account" component = {Account}/> 
         <Route  path = "/Cart" component = {Cart}/> 
-        <Route  path = "/Product" component = {Product}/> 
-        <Route  path = "/Product2" component = {Product2}/> 
+        <Route path='/Tovar/:id' component={Tovar} /> 
       </Switch>
       <Header />
     </BrowserRouter> 
