@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container,Row,Col,Tab,Nav  } from 'react-bootstrap';
-
+import { IoLogoVk,IoLogoInstagram } from "react-icons/io";
 
 export default class Uhod extends Component {
     render() {
@@ -20,6 +20,9 @@ export default class Uhod extends Component {
                             <Nav.Item>
                             <Nav.Link eventKey="second" style={{padding:'.3rem 1.9rem', borderRadius:'20pt'}}> <span className='textNav'>Общие вопросы</span></Nav.Link>
                             </Nav.Item>
+                            <Nav.Item>
+                            <Nav.Link eventKey="third" style={{padding:'.3rem 1.9rem', borderRadius:'20pt'}}> <span className='textNav'>О нас</span></Nav.Link>
+                            </Nav.Item>
                         </Nav>
                         </Col>
                         <Col sm={9}>
@@ -37,6 +40,14 @@ export default class Uhod extends Component {
                             1. Выбрать несколько понравившихся вам фотографии и расставить их по приоритетности. Сделайте это для того, что бы мы учли ваш выбор и сами смогли выбрать лучшую фотографию для визуальности портрета.
                             <br/>2. Лучший выбор фотографии, это профессионально сделанная фотография.
                             <br/>3. Посмотрите качество фотографии, формат фотографии, размер изображения и его вес. Чем больше размер и качество фотографии, тем больше размер портрета можно сделать.
+                            </div>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="third"><div className='CardBody'>
+                            <span className='numb'>Кто мы?</span><br/>
+                            Владельцы выжигательного станка, базируемся в Ярославской области.
+                            <br/><br/><span className='numb'>Наши соц. сети, которые мы используем как портфолио</span><br/>
+                            <a href="https://vk.link/fufuk"><IoLogoVk  cursor = "pointer" className='FootIcon footicon2'  /> </a> &nbsp;
+                            <a href= "https://www.instagram.com/fufuk_workshop/"><IoLogoInstagram cursor = "pointer" className='FootIcon footicon2' /></a> 
                             </div>
                             </Tab.Pane>
                         </Tab.Content>

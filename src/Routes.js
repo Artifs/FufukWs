@@ -11,7 +11,6 @@ import FastRegistration from './pages/FastRegistration';
 import ZakazPortretaSecond from './pages/ZakazPortretaSecond';
 import ZakazPortretaResult from './pages/ZakazPortretaResult';
 import Account from './pages/Account';
-import Product from './pages/Product';
 import Tovar from './pages/Tovar';
 import FAQ from './pages/FAQ';
 import Cart from './pages/Cart';

@@ -21,8 +21,8 @@ function Footer() {
                     </Col>
                     <Col >
                     Принимаем к оплате:<br/>
-                    <a href="https://vk.link/fufuk"><RiMastercardLine variant="success" cursor = "pointer" className='FootIcon '  /> </a> 
-                    <a href="https://vk.link/fufuk"><RiVisaLine variant="success" cursor = "pointer" className='FootIcon '  /> </a> 
+                    <RiMastercardLine variant="success" cursor = "pointer" className='FootIcon '  /> 
+                    <RiVisaLine variant="success" cursor = "pointer" className='FootIcon '  />
                     </Col>
                 </Row>
                 <Row className='text-center' xs = {1} sm ={1} md = {3} lg={3} xl={3} >

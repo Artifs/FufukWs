@@ -9,7 +9,6 @@ import { useAlert } from "react-alert";
 
 export default function Tovar(props) {
     const id = props.match.params.id;
-    
     const { userCart, setUserCart } = useContext(UserContext)
     const { filesPortret, setFilesPortret } = useContext(UserContext)
     const [Count, setCount] = useState(1)
@@ -17,6 +16,7 @@ export default function Tovar(props) {
     const [tovar, setTovar] = useState([])
     const alert = useAlert();
     const history = useHistory();
+    
     
     const AddToCart = (e) => {
         setUserCart((p) => ({ ...p, cart:[ ...userCart.cart , [tovar.id , Count]] }))
@@ -37,7 +37,7 @@ export default function Tovar(props) {
 
     if(tovar != ''){
     return (
-        <div className='MarginTop '>
+        <div className='MarginTop mb-3'>
              <Container>
                 <Row> 
                     <Col>

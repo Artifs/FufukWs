@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import CarouselBox from '../components/CarouselBox'
-import  { Breakpoint } from 'react-socks';
 import Carousel from 'react-bootstrap/Carousel';
 import sl1 from '../assets/sl11.jpg'
 import sl2 from '../assets/sl22.jpg'
