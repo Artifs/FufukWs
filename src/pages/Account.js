@@ -1,6 +1,6 @@
 import React, {useEffect, useState,useContext} from 'react'
 import { UserContext } from "../App";
-import { Container,Row,Col,Button,Tab,Nav  } from 'react-bootstrap';
+import { Container,Row,Col,Card,Tab,Nav  } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
 
@@ -16,6 +16,9 @@ export default function Account(props) {
     const [Region, setRegion] = useState('')
     const [Apartmets, setApartmets] = useState('')
     const [Index, setIndex] = useState('')
+    const [UserStatus, setUserStatus] = useState('')
+    const [ChangeStatusEmail, setChangeStatusEmail] = useState('')
+    const [ChangeStatus, setChangeStatus] = useState('')
     const [spanTextSec, setSpanTextSec] = useState('Изменить')
     const [spanText, setSpanText] = useState('Изменить')
     const [ChangingSec, setChangingSec] = useState(false)
@@ -37,7 +40,9 @@ export default function Account(props) {
                 })
                 .then (response => response.text())
                 .then(response => {
+                    
                     const a = response.split(';');
+                    console.log(a)
                         setName (a[0])
                         setSecName (a[1])
                         setLastName(a[2])
@@ -46,6 +51,7 @@ export default function Account(props) {
                         setRegion (a[6])
                         setApartmets (a[7])
                         setIndex (a[3])
+                        setUserStatus(a[8])
                 })
             } 
         }else if (userEmail.email === '' && userState.isLoggedIn === false){
@@ -61,10 +67,8 @@ export default function Account(props) {
             })
             .then(response => response.text())
             .then(response => {
-                console.log(response)
                 const a = response.split(',');
                 setHistoryOrders(a);
-                console.log(a)
             })
         }
      }, [])
@@ -131,6 +135,26 @@ export default function Account(props) {
         })
     }
 
+
+    const ChangingUserStatus = (e) => {
+        var form = new FormData()
+        form.append('email', ChangeStatusEmail);
+        form.append('status', ChangeStatus);
+        form.append('ChangingUserStatus', true);
+        fetch("http://localhost/projects/server/index.php",{
+            method: 'POST',
+            body: form
+        })
+        .then (response => response.text())
+        .then(response => {
+            if (response == "1"){
+                alert.success(`Статус изменён на ${ChangeStatus}` );
+            }else{
+                alert.error( 'Что-то пошло не так на сервере' );
+            }
+        })
+    }
+
     const isDisabledSec = (e) => {
         if (ChangingSec === true){
             return false
@@ -164,7 +188,7 @@ export default function Account(props) {
     const isValidDate = (date) => {
         return date && Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date);
       }
-
+      if (UserStatus == 0){
         return (
             <div>
                 <br/>
@@ -323,4 +347,49 @@ export default function Account(props) {
                 </Container>
             </div>
         )
+
+    }else if(UserStatus == 1){
+
+        return (
+        <div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <Container>
+                <Row> 
+                    <Col>
+                        <Card >
+                            <Card.Img variant="top"/>
+                            <Card.Body>
+                                <Card.Title className='allLinks2' >Изменить статус</Card.Title>  
+                            </Card.Body>
+                            <div>
+                            <label className="field field_v3 inpReg ml-3">
+                                        <input type = 'text' className="field__input inpReg" value = {ChangeStatusEmail} onChange={(e) =>{setChangeStatusEmail ( e.target.value ) }} />
+                                        <span className="field__label-wrap inpReg">
+                                        <span className="field__label inpReg" >email</span>
+                                        </span>
+                                        </label>
+                                        <br/>
+                            <input className="ml-3" type='radio' name='status' value = 'Default User' onClick = {(e) => {setChangeStatus(e.target.value)}}/>&nbsp;default user <br/>
+                            <input className="ml-3"  type='radio' name='status' value = 'Admin'  onClick = {(e) => {setChangeStatus(e.target.value)}}/>&nbsp; admin<br/> 
+                            <button className="AddToCartButt ml-3 mt-2 mb-2" onClick={ChangingUserStatus}>Изменить статус пользователя</button>
+                            </div>
+                        </Card> 
+                    </Col>
+                    <Col>
+                        <Card >
+                            <Card.Img variant="top"/>
+                            <Card.Body>
+                                <Card.Title className='allLinks2'>Добавить товар</Card.Title>  
+                            </Card.Body>
+                        </Card> 
+                    </Col>
+                </Row>
+            </Container>
+        </div>
+        )
+    }
 }
