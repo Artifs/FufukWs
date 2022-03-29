@@ -1,15 +1,13 @@
 import React, { useState,useEffect, useContext } from 'react'
 import { UserContext } from "../App";
 import { Container,Row,Col } from 'react-bootstrap';
-import itemList from '../catalog.json'
 import axios from 'axios'
-
+import { useAlert } from "react-alert";
 
 export default function Cart(props) {
     const { userState, setUserState } = useContext(UserContext)
     const { userCart, setUserCart } = useContext(UserContext)
     const { userEmail, setEmailState } = useContext(UserContext)
-    const { filesPortret, setFilesPortret } = useContext(UserContext)
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
     const [secName, setSecName] = useState('')
@@ -22,8 +20,35 @@ export default function Cart(props) {
     const [addictionalNote, setAddictionalNote] = useState('-')
     const [cart, setCart] = useState([])
     const [tovar, setTovar] = useState([])
-    let Summ = 0
+    const [itemList, setItemList] = useState()
+    const [loading, setLoading] = useState(false)
 
+    let Summ = 0
+    const alert = useAlert();
+
+    useEffect(() => {
+        var form = new FormData()
+        form.append('JSONPARSE',true);
+        fetch("http://g908020p.beget.tech",{
+            method: 'POST',
+            body: form
+        })
+        .then(response => response.text())
+        .then(response => {
+            var json = JSON.parse(response)
+            setCart(userCart.cart) 
+            userCart.cart.find((x) => {
+               let s  = x[1]
+               json.items.find((e) => {
+                   if (e.id == x[0]){
+                       setTovar ((oldItems) => [...oldItems, [e,s]])
+                   }
+               })
+           }
+           )
+           setLoading(true)
+        })
+    }, [])
 
     useEffect(() => {
         if(userState.isLoggedIn === true && email === ''){
@@ -31,12 +56,12 @@ export default function Cart(props) {
             var form = new FormData()
             form.append('email', userEmail.email);
             form.append('StrLog', true);
-            fetch("http://localhost/projects/server/index.php",{
+            fetch("http://g908020p.beget.tech",{
                 method: 'POST',
                 body: form
             })
             .then (response => response.text())
-            .then(response => {
+            .then (response => {
                 const a = response.split(';');
                     setName(a[0])
                     setSecName(a[1])
@@ -50,20 +75,7 @@ export default function Cart(props) {
             })
         }
         
-         setCart(userCart.cart) 
-         userCart.cart.find((x) => {
-            let s  = x[1]
-            itemList.items.find((e) => {
-                if (e.id == x[0]){
-                    
-                    setTovar ((oldItems) => [...oldItems, [e,s]])
-                }
-            })
-            if( x[0] == 999){
-                setTovar ((oldItems) => [...oldItems, [x]])
-            }
-        }
-        )
+
 
     }, []);
     const sendCart = (e) =>{
@@ -87,32 +99,21 @@ export default function Cart(props) {
         form.append('addictionalNote',addictionalNote)
         tovar.map((el,t) => {
             if(el.length > 1){
-                names = names+el[0].Name+','+el[1]+","
-            }else{
-                names = names+'Портрет А'+el[0][1]+','
+                names = names+el[0].Name+' - '+el[1]+" шт, "
             }
-            // console.log(el[0])
-            // console.log(el[1])
+             console.log(el[0])
         })
-        console.log(names)
         form.append('tovar', names);
-        filesPortret.filesPortret.map((el,i) => {
-            //console.log(el[0])
-            if(el[0] != 'notFile'){
-                form.append('files'+f, el[0])
-                f++
-                //console.log(form)
-            }
-            // for(var pair of form.entries()) {
-            //     console.log(pair[0]);
-            //     console.log(pair[1]);
-            
-            //  }
-        })
+
         
-        axios.post('http://localhost/projects/server/index.php', form)
-        .then((response) => {
-            console.log(response)
+        axios.post('http://g908020p.beget.tech', form)
+        .then ((response) => {
+            console.log(response.data)
+            if(response.data == 'conf'){
+                alert.success('Ваш заказ оформлен')
+            }else{
+                alert.error('Что-то пошло не так, обратитесь в тех. поддержку')
+            }
         })
     }
     const isDisabled = (e) => {
@@ -126,9 +127,23 @@ export default function Cart(props) {
     const deleteItem = (e) => {
         setTovar(tovar.filter((item, i) => i !== e))
         let a  = userCart.cart.splice(e,1)
-        let b = filesPortret.filesPortret.splice(e,1)
     }
 
+    if(loading == false){
+        return (
+
+            <div className='text-center'>
+                <br/>
+                <br/>
+                <br/>
+                <h4 className='mt-5'>Загрузка</h4>
+                <br/>
+                <br/>
+                <br/>
+                    <div class="loadingio-spinner-dual-ring-0i3eilzu4zqn"><div class="ldio-wr6v1tla7ab"><div></div><div><div></div></div></div></div>
+            </div>
+        )
+    }
     if (cart == '') {
             return (
                 <> <div className='text-center'>
@@ -155,7 +170,6 @@ export default function Cart(props) {
                     </span>
                     </label>
                     
-                    
                     <label className="field field_v3">
                     <input className="field__input" placeholder="Иванов" value={secName} onChange={(e) => {setSecName(e.target.value)}}/>
                     <span className="field__label-wrap">
@@ -176,8 +190,6 @@ export default function Cart(props) {
                     <span className="field__label">Email</span>
                     </span>
                     </label>
-                   
-                    <br/>
                     
                     <label className="field field_v3">
                     <input type = 'number' className="field__input" id = 'indexCityInput' placeholder="152150" value={indexCity} onChange={(e) => {setIndexCity(e.target.value)}}/>
@@ -185,45 +197,34 @@ export default function Cart(props) {
                     <span className="field__label">Почтовый индекс</span>
                     </span>
                     </label>
-                   
-                    <br/>
                     
-                    <label className="field field_v3 mb-3">
+                    <label className="field field_v3 ">
                     <input className="field__input" placeholder="Россия" value={Country} onChange={(e) => {setCountry(e.target.value)}}/>
                     <span className="field__label-wrap">
                     <span className="field__label">Страна</span>
                     </span>
                     </label>
-                    
-                    <br/>
 
-                    <label className="field field_v3 mb-3">
+                    <label className="field field_v3">
                     <input className="field__input" placeholder="Москва" value={City} onChange={(e) => {setCity(e.target.value)}}/>
                     <span className="field__label-wrap">
                     <span className="field__label">Город</span>
                     </span>
                     </label>
-                    
-                    <br/>
 
-                    <label className="field field_v3 mb-3">
+                    <label className="field field_v3 ">
                     <input className="field__input" placeholder="Московская область" value={Region} onChange={(e) => {setRegion(e.target.value)}}/>
                     <span className="field__label-wrap">
                     <span className="field__label">Край/область/регион</span>
                     </span>
                     </label>
-                    
-                    <br/>
 
-                    <label className="field field_v3 mb-3">
+                    <label className="field field_v3 ">
                     <input className="field__input" placeholder=" " value={Apartmets} onChange={(e) => {setApartmets(e.target.value)}}/>
                     <span className="field__label-wrap">
                     <span className="field__label">Улица, дом, квартира</span>
                     </span>
                     </label>
-                    
-                    <br/>
-
 
                     <label className="field field_v3 mb-3">
                     <input className="field__input" placeholder=" " value={addictionalNote} onChange={(e) => {setAddictionalNote(e.target.value)}}/>

@@ -183,6 +183,68 @@
     margin-left: 10px;
   }
 }
+
+/*Load animate */
+
+@keyframes ldio-wr6v1tla7ab {
+  0% { transform: rotate(0) }
+  100% { transform: rotate(360deg) }
+}
+.ldio-wr6v1tla7ab div { box-sizing: border-box!important }
+.ldio-wr6v1tla7ab > div {
+  position: absolute;
+  width: 183.6px;
+  height: 183.6px;
+  top: 10.2px;
+  left: 10.2px;
+  border-radius: 50%;
+  border: 12.24px solid #000;
+  border-color: #1d0e0b transparent #1d0e0b transparent;
+  animation: ldio-wr6v1tla7ab 0.5555555555555556s linear infinite;
+}
+.ldio-wr6v1tla7ab > div:nth-child(2) { border-color: transparent }
+.ldio-wr6v1tla7ab > div:nth-child(2) div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+}
+.ldio-wr6v1tla7ab > div:nth-child(2) div:before, .ldio-wr6v1tla7ab > div:nth-child(2) div:after { 
+  content: "";
+  display: block;
+  position: absolute;
+  width: 12.24px;
+  height: 12.24px;
+  top: -12.24px;
+  left: 73.44px;
+  background: #1d0e0b;
+  border-radius: 50%;
+  box-shadow: 0 171.36px 0 0 #1d0e0b;
+}
+.ldio-wr6v1tla7ab > div:nth-child(2) div:after { 
+  left: -12.24px;
+  top: 73.44px;
+  box-shadow: 171.36px 0 0 0 #1d0e0b;
+}
+.loadingio-spinner-dual-ring-0i3eilzu4zqn {
+  width: 204px;
+  height: 204px;
+  display: inline-block;
+  overflow: hidden;
+  background: none;
+}
+.ldio-wr6v1tla7ab {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-wr6v1tla7ab div { box-sizing: content-box; }
+
+/*Load animate */
+
 .LogoOnSlider{
   font-size: 140pt;
   position: absolute;
@@ -215,6 +277,9 @@
 }
 .MarginTop{
   margin-top: 90px;
+}
+.Questbutt{
+  margin-left: auto;
 }
 .FootIcon{
 text-decoration: none;
@@ -269,12 +334,29 @@ color:rgb(187, 187, 187);
   font-size: 17pt;
   font-weight: bolder;
 }
-
+.ChangeStatus{
+  margin-left: 25%;
+}
+.questSpan{
+  max-width: 600px;
+}
+.imgOnAdmin{
+  max-width: 500px;
+  max-height: 500px;
+}
+.QuestionsCont{
+  max-width: 1920px;
+  word-wrap: break-word;
+  text-align: center;
+}
 .plusButton,  .minusButton {
   background-color: white;
   border-width: 0;
   border: 1px solid black;
   padding: 10px;
+}
+.ImageOnOform{
+  width: 100%;
 }
 .plusButton{
   border-radius:0 50px  50px 0;
@@ -290,12 +372,31 @@ color:rgb(187, 187, 187);
 input[type=number] {
   -moz-appearance:textfield; /* Firefox */
 }
-.nextButtonZakaz:disabled, .nextButton:disabled{
+.nextButtonZakaz:disabled, .nextButton:disabled, .nextButtonQuest:disabled{
   border: 1px solid #535a61;
   background-color: #535a61;
 }
+.TestGle{
+  margin-top: 12%;
+}
+.ButSendQuest{
+  text-align: center;
+}
 .nextButton {
   width: 50%;
+  border-width: 0;
+  border: 1px solid #343a40;
+  background-color: #343a40;
+  padding: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 25pt;
+  color: white;
+  font-size: 12pt;
+}
+.nextButtonQuest{
+  width: 75%;
+  margin-left: 12.5%;
   border-width: 0;
   border: 1px solid #343a40;
   background-color: #343a40;
@@ -430,8 +531,10 @@ a.active .textNav{
 .ChangeText{
   color: #7c7c7c;
   text-decoration:underline;
-  font-size: 12pt;
+  font-size: 14pt;
   cursor: pointer;
+  float: right;
+  margin-right: 40px;
 }
 
 .textHome{
@@ -596,7 +699,7 @@ CORE STYLES
   --uiFieldBorderWidth: var(--fieldBorderWidth, 2px);
   --uiFieldPaddingRight: var(--fieldPaddingRight, 1rem);
   --uiFieldPaddingLeft: var(--fieldPaddingLeft, 1rem);   
-  --uiFieldBorderColorActive: var(--fieldBorderColorActive, rgba(22, 22, 22, 1));
+  --uiFieldBorderColorActive: var(--fieldBorderColorActive, rgb(20, 20, 20));
 
   width: 100%;
   display: var(--fieldDisplay, inline-flex);
@@ -612,7 +715,7 @@ CORE STYLES
   width: var(--fieldWidth, 100%);
   height: var(--fieldHeight, 3rem);
   padding: var(--fieldPaddingTop, 1.25rem) var(--uiFieldPaddingRight) var(--fieldPaddingBottom, .5rem) var(--uiFieldPaddingLeft);
-  border-bottom: var(--uiFieldBorderWidth) solid var(--fieldBorderColor, rgba(0, 0, 0, .25));  
+  border-bottom: var(--uiFieldBorderWidth) solid var(--fieldBorderColor, rgba(20, 20, 20, 0.50));  
 }
 
 .field__input:focus{
@@ -679,7 +782,10 @@ CORE STYLES
   will-change: bottom, opacity, font-size;
 }
 
-.inpReg:disabled{color: rgb(170, 170, 170); ;}
+.inpReg:disabled{
+  color: rgb(180, 180, 180); 
+  border-bottom: var(--uiFieldBorderWidth) solid var(--fieldBorderColor, rgba(100, 100, 100, 0.25)); 
+}
 .field__input:focus ~ .field__label-wrap .field__label,
 .field__input:not(:placeholder-shown) ~ .field__label-wrap .field__label{
   --fieldHintFontSize: var(--fieldHintFontSizeFocused, .75rem);
@@ -710,15 +816,16 @@ CORE STYLES
   font-size: var(--fieldFontSize, 1rem);
 }
 
-.inpReg{
-  width: 240px;
-}
+
 .orSpan{
   text-align: center;
   margin: auto;
 }
 #personButton{
   padding-left: 10px;
+}
+.centered-text {
+  margin-left: 140px;
 }
 .butLogIn{
   margin: auto;

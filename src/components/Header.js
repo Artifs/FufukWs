@@ -53,15 +53,17 @@ Auth = (e) => {
         form.append('email', email);
         form.append('password', password);
         form.append('auth', auth);
-        fetch("http://localhost/projects/server/index.php",{
+        fetch("http://g908020p.beget.tech",{
             method: 'POST',
             body: form
         })
         .then (response => response.text())
         .then(response => {
             if (response === 'err'){
+                console.log(response)
                 this.setState({err:'Email и пароль не совпадают'});
             }else if (response === 'Confirm'){
+                console.log(response)
                 this.setState({
                     err:'',
                     loggedIn:true,
@@ -128,7 +130,7 @@ Auth = (e) => {
                 <div className='butLogIn mt-2'>
                 <Nav className = "mr-auto">
                 <LinkContainer to = '/FastRegistration'>
-                    <button className='nextButtonZakaz mb-2' onClick = {this.hanleOnClick}>Быстрая регистрация</button>
+                    <button className='nextButtonZakaz mb-2'>Быстрая регистрация</button>
                 </LinkContainer>
                 </Nav>
                 </div>
@@ -159,7 +161,7 @@ Auth = (e) => {
                         } 
                     }}
                 </UserContext.Consumer>
-                <Navbar fixed='top' collapseOnSelect expand = "md" bg="light" variant = "light" expanded = {this.state.expanded}>
+                <Navbar fixed='top' collapseOnSelect expand = "lg" bg="light" variant = "light" expanded = {this.state.expanded}>
                     <Container>
                         <Navbar.Brand className='fullLogo' style={{marginRight:'0px'}} onClick ={(e) => {this.props.history.push ('/')
                         this.setState({expanded:false})}}>
@@ -171,7 +173,7 @@ Auth = (e) => {
                             alt = "Logo"
                             /> 
                         </Navbar.Brand>
-                        <Breakpoint customQuery="(max-width: 766px)">
+                        <Breakpoint customQuery="(max-width: 991px)">
                             <OverlayTrigger  show={this.isDisabled()} trigger="click" placement="bottom" overlay={popover} className = 'AuthIcon' >
                                 <BsPersonFill className='HeadIcon' id = 'personButton' variant="success" cursor = "pointer" onClick={this.Flip }/>
                             </OverlayTrigger>
@@ -197,8 +199,18 @@ Auth = (e) => {
                                 <Nav.Link ><span className='ml-3 mr-3 allLinks' >FAQ</span></Nav.Link>
                             </LinkContainer>
                             </Nav.Item>
+                            <Nav.Item>
+                            <LinkContainer onClick={() => {this.setState({expanded:false})}} to = '/TechicalSupport'>
+                                <Nav.Link ><span className='ml-3 mr-3 allLinks' >Тех. поддержка</span></Nav.Link>
+                            </LinkContainer>
+                            </Nav.Item>
+                            <Nav.Item>
+                            <LinkContainer onClick={() => {this.setState({expanded:false})}} to = '/Test'>
+                                <Nav.Link ><span className='ml-3 mr-3 allLinks' >Тест</span></Nav.Link>
+                            </LinkContainer>
+                            </Nav.Item>
                             </Nav>
-                            <Breakpoint customQuery="(min-width: 765px)">
+                            <Breakpoint customQuery="(min-width: 992px)">
                                 <OverlayTrigger  show={this.isDisabled()} trigger="click" placement="bottom" overlay={popover} className = 'AuthIcon' >
                                     <BsPersonFill className='HeadIcon' id = 'personButton' variant="success" cursor = "pointer" onClick={this.Flip}/>
                                 </OverlayTrigger>

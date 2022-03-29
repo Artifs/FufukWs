@@ -25,7 +25,7 @@ export default class FastRegistration extends Component {
         form.append('email', email);
         form.append('password', password);
         form.append('register', register);
-        fetch("http://localhost/projects/server/index.php",{
+        fetch("http://g908020p.beget.tech",{
             method: 'POST',
             body: form
         })

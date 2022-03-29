@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useContext} from 'react'
-import itemList from '../catalog.json'
 import { Container,Row,Col,Card } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
 import Carousel from 'react-bootstrap/Carousel';
@@ -12,28 +11,44 @@ export default function Tovar(props) {
     const { userCart, setUserCart } = useContext(UserContext)
     const { filesPortret, setFilesPortret } = useContext(UserContext)
     const [Count, setCount] = useState(1)
-    const [addCart, setAddCart] = useState()
+    const [itemList, setItemList] = useState()
     const [tovar, setTovar] = useState([])
     const alert = useAlert();
     const history = useHistory();
     
-    
-    const AddToCart = (e) => {
-        setUserCart((p) => ({ ...p, cart:[ ...userCart.cart , [tovar.id , Count]] }))
-        setFilesPortret((p) => ({ ...p, filesPortret:[ ...filesPortret.filesPortret , ['notFile']] }))
-        alert.success('Товар успешно добавлен в корзину');
-    }
+    useEffect(() => {
+        var form = new FormData()
+        form.append('JSONPARSE',true);
+        fetch("http://g908020p.beget.tech",{
+            method: 'POST',
+            body: form
+        })
+        .then(response => response.text())
+        .then(response => {
+            var json = JSON.parse(response)
+            setItemList(json.items)
+            console.log(json.items)
+            json.items.find((e) => {
+                if(e.id == id && tovar ==''){
+                    setTovar(e)
+                    return 
+                }
+            })
+        })
+    }, [])
+
     if (Count > 10){
         setCount(10)
     }else if(Count < 1){
         setCount(1)
     }
-    itemList.items.find((e) => {
-        if(e.id == id && tovar ==''){
-            setTovar(e)
-            return 
-        }
-    })
+
+    const AddToCart = (e) => {
+        setUserCart((p) => ({ ...p, cart:[ ...userCart.cart , [tovar.id , Count]] }))
+        setFilesPortret((p) => ({ ...p, filesPortret:[ ...filesPortret.filesPortret , ['notFile']] }))
+        alert.success('Товар успешно добавлен в корзину');
+    }
+
 
     if(tovar != ''){
     return (
@@ -54,7 +69,7 @@ export default function Tovar(props) {
                                     <Carousel.Item >
                                         <img 
                                             className = "d-block w-100 CarouselImg"
-                                            src = { im }
+                                            src = {'http://g908020p.beget.tech/images/'+im}
                                         />
                                     </Carousel.Item>
                                 ))

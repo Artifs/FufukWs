@@ -1,9 +1,10 @@
 import React from 'react'
-import { Container,Row,Col } from 'react-bootstrap';
+import { Container,Row,Col,Nav } from 'react-bootstrap';
 import logo from '../assets/fufuk logo.png'
 import { IoLogoVk,IoLogoInstagram } from "react-icons/io";
 import { RiMastercardLine,RiVisaLine } from "react-icons/ri";
 import { withRouter} from 'react-router-dom';
+import pdf from "../pages/Public offer.pdf"
 
 function Footer() {
     return (
@@ -27,10 +28,13 @@ function Footer() {
                 </Row>
                 <Row className='text-center' xs = {1} sm ={1} md = {3} lg={3} xl={3} >
                     <Col >
-                    © 2020, FufukWS.com
+                        © 2020, FufukWS.com
                     </Col>
                     <Col >
-                    <a href='#' className='dot' >Публичная оферта</a>
+                           
+                                <a href={pdf} target="_blank" className='dot' >Публичная оферта</a>
+                           
+                    {/* <a href='#' className='dot' >Публичная оферта</a> */}
                     </Col>
                     <Col>
                     </Col>

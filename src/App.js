@@ -16,7 +16,8 @@ const initialState = {
   isLoggedIn: false,
   email: '',
   cart: [],
-  filesPortret:[]
+  filesPortret:[],
+  CashPortret: []
 };
 
 export const UserContext = createContext(initialState);
@@ -26,9 +27,11 @@ function App() {
   const [userEmail, setEmailState] = useState(initialState);
   const [userCart, setUserCart] = useState(initialState);
   const [filesPortret, setFilesPortret] = useState(initialState);
+  const [portretCash, setPortretCash] = useState(initialState);
+
   return (
     <Provider template={AlertTemplate} {...options}>
-        <UserContext.Provider value={{ userState, setUserState, userEmail, setEmailState, userCart, setUserCart,filesPortret, setFilesPortret}}>
+        <UserContext.Provider value={{ userState, setUserState, userEmail, setEmailState, userCart, setUserCart,filesPortret, setFilesPortret, portretCash, setPortretCash}}>
           <Routes />
         </UserContext.Provider>
       </Provider>

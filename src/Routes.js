@@ -5,7 +5,6 @@ import Footer from './components/Footer';
 import {BrowserRouter, Route, Switch } from 'react-router-dom'
 import Home from './pages/Home';
 import Catalog from './pages/Catalog';
-import Contacts from './pages/Contacts';
 import ZakazPortreta from './pages/ZakazPortreta';
 import FastRegistration from './pages/FastRegistration';
 import ZakazPortretaSecond from './pages/ZakazPortretaSecond';
@@ -14,31 +13,36 @@ import Account from './pages/Account';
 import Tovar from './pages/Tovar';
 import FAQ from './pages/FAQ';
 import Cart from './pages/Cart';
+import Test from './pages/Test'
 import { withRouter} from 'react-router-dom';
+import TechSupp from './pages/TechSupp';
+import ZakazPortretaOformlenie from './pages/ZakazPortretaOformlenie'
 
 function Routes() {
   return (
+    <BrowserRouter>
     <div className= 'page-container'>
     <div className = 'content-wrap'>
-    <BrowserRouter>
      <Switch>
         <Route exact path = "/" component = {Home}/> 
-        <Route  path = "/Contacts" component = {Contacts}/> 
         <Route  path = "/Catalog" component = {Catalog}/> 
         <Route  path = "/ZakazPortreta" component = {ZakazPortreta}/> 
         <Route  path = "/FAQ" component = {FAQ}/> 
         <Route  path = "/ZakazPortretaSecond" component = {ZakazPortretaSecond} /> 
         <Route  path = "/ZakazPortretaResult" component = {ZakazPortretaResult} /> 
+        <Route  path = "/ZakazPortretaOformlenie" component = {ZakazPortretaOformlenie} /> 
         <Route  path = "/FastRegistration" component = {FastRegistration}/> 
         <Route  path = "/Account" component = {Account}/> 
         <Route  path = "/Cart" component = {Cart}/> 
-        <Route path='/Tovar/:id' component={Tovar} /> 
+        <Route  path = "/TechicalSupport" component = {TechSupp}/> 
+        <Route  path = '/Tovar/:id' component={Tovar} /> 
+        <Route  path = "/Test" component = {Test}/> 
       </Switch>
       <Header />
-    </BrowserRouter> 
     </div>
     <Footer />
     </div>
+    </BrowserRouter> 
   );
 }
 

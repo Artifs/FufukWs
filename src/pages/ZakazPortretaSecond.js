@@ -22,6 +22,7 @@ class ZakazPortretaSecond extends Component {
         let reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onload = () => {
+            console.log(reader.result)
           this.setState({
             imgUpload: reader.result
           })
@@ -60,7 +61,7 @@ class ZakazPortretaSecond extends Component {
             var form = new FormData()
             form.append('file', selectedFile);
             form.append('loadedimg', true);
-            axios.post('http://localhost/projects/server/index.php', form)
+            axios.post('http://g908020p.beget.tech', form)
             .then((response) => {
                 console.log(response.data)
                 if(response.data !== 'FileSoBig' && response.data !== 'badFormat' && response.data === 'LoadAccept'){
@@ -113,7 +114,7 @@ class ZakazPortretaSecond extends Component {
         return (
             <div className='MarginTop'>
                 <h2 className='textSecond text-center' >Загрузите ваше изображение<br/>
-                <span className='reqText' ></span><br/></h2>
+                <span className='reqText' >Вес изображения не должен превышать 50 мб, также оно должно быть в одном из стандартных форматов: PNG, JPEG (JPG), если вам нужна помощь с выбором фотографии, прочитайте советы в разделе FAQ,<br/> если останутся сомнения, смело пишите в техническую поддержку, вам всегда будут рады. </span><br/></h2>
                 
                 <Container className = 'inputsPortrets'>
                 <Row>
