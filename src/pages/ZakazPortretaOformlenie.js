@@ -7,9 +7,6 @@ import axios from 'axios';
 
 
 export default function ZakazPortretaOformlenie(props) {
-    // const [choosen, setChoosen] = useState(props.location.state.choosen)
-    // const [imgUpload, setImgUpload] = useState(props.location.state.imgUpload)
-    // const [file, setFile] = useState(props.location.state.file)
     const { userState, setUserState } = useContext(UserContext)
     const { portretCash, setPortretCash } = useContext(UserContext)
     const { userEmail, setEmailState } = useContext(UserContext)

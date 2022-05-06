@@ -3,8 +3,8 @@ import { UserContext } from "../App";
 import { Container,Row,Col,Card,Tab,Nav  } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
-import Carousel from 'react-bootstrap/Carousel';
-import { ContactsOutlined } from '@material-ui/icons';
+import { CropPortrait } from '@material-ui/icons';
+import axios from 'axios';
 
 export default function Account(props) {
     const { userState, setUserState } = useContext(UserContext)
@@ -21,8 +21,21 @@ export default function Account(props) {
     const [UsersQuestions, setUsersQuestions] = useState('')
     const [UserStatus, setUserStatus] = useState('')
     const [ChangeStatusEmail, setChangeStatusEmail] = useState('')
+
+    const [AddTovarName, setAddTovarName] = useState('')
+    const [AddTovarDesc, setAddTovarDesc] = useState('')
+    const [AddTovarTags, setAddTovarTags] = useState('')
+    const [AddTovarPrice, setAddTovarPrice] = useState()
+    const [AddTovarRazmer, setAddTovarRazmer] = useState('')
+    const [AddMainImageTovar, setAddMainImageTovar] = useState()
+    const [AddTwoImageTovar, setAddTwoImageTovar] = useState()
+    const [MainImageTovarText, setMainImageTovarText] = useState('Загрузите основное изображение')
+    const [TwoImageTovarText, setTwoImageTovarText] = useState('Загрузите второе изображение')
+
+
     const [UsersOffers, setUsersOffers] = useState('')
     const [UsersOffersSend, setUsersOffersSend] = useState('')
+    const [UsersPortretsSend, setUsersPortretsSend] = useState('')
     const [PortretsOffers, setPortretsOffers] = useState('')
     const [ChangeStatus, setChangeStatus] = useState('')
     const [spanTextSec, setSpanTextSec] = useState('Изменить')
@@ -30,6 +43,8 @@ export default function Account(props) {
     const [ChangingSec, setChangingSec] = useState(false)
     const [Changing, setChanging] = useState(false)
     const [HistoryOrdersText, setHistoryOrdersText] = useState('Вы не совершали заказов')
+    const [HistoryOrdersTextDefault,setHistoryOrdersTextDefault] = useState('')
+    const [HistoryOrdersTextPortrets,setHistoryOrdersTextPortrets] = useState('')
     const [HistoryOrders, setHistoryOrders] = useState([])
     const [HistoryOrdersPortret, setHistoryOrdersPortret] = useState([])
 
@@ -37,6 +52,7 @@ export default function Account(props) {
     const alert = useAlert();
 
     useEffect(() => {
+        console.log(AddTovarName,AddTovarDesc,AddTovarPrice,AddTovarRazmer ,AddMainImageTovar,AddTwoImageTovar )
         if(userEmail.email !== '' && userState.isLoggedIn === true){
             if(email === ''){
                 setEmail (userEmail.email)
@@ -76,9 +92,13 @@ export default function Account(props) {
             .then (response => response.text())
             .then(response => {
                 const x = JSON.parse(response);
+                console.log(x)
+                x.sort((b,a) => a.id.localeCompare(b.id))
+                console.log(x)
                 setHistoryOrders(x);
                  if (x.length >= 1){
                      setHistoryOrdersText('История заказов')
+                     setHistoryOrdersTextDefault('Заказы из каталога')
                  }
             })
         }
@@ -93,13 +113,132 @@ export default function Account(props) {
             .then (response => response.text())
             .then(response => {
                 const x = JSON.parse(response);
+                x.sort((b,a) => a.id.localeCompare(b.id))
                 setHistoryOrdersPortret(x);
                  if (x.length >= 1){
                      setHistoryOrdersText('История заказов')
+                     setHistoryOrdersTextPortrets('Портреты')
                  }
             })
         }
      }, [])
+
+     const FilerMainImage = (e) =>{
+        const selectedFile = document.getElementById('fileInput').files[0];
+        console.log(selectedFile.name)
+        var form = new FormData()
+        form.append('file', selectedFile);
+        form.append('imageForTovar',true);
+        axios.post('http://g908020p.beget.tech', form)
+        .then(response =>{
+            console.log(response.data.length)
+            if (response.data.length == 36){
+                alert.success(`Основное изображение успешно загружено`);
+                setAddMainImageTovar(response.data)
+                setMainImageTovarText(selectedFile.name)
+            }else if(response.data == 'FileSoBig'){
+                alert.error(`Файл слишком большой (95мб макс.)` );
+                setMainImageTovarText('Загрузите основное изображение')
+            }else if (response.data == 'badFormat'){
+                alert.error(`Выбран неверный формат (не jpg, jpeg или png)` );
+                setMainImageTovarText('Загрузите основное изображение')
+            }else{
+                alert.error(`Неизвестная ошибка, обратитесь к сисадмину` );
+                setMainImageTovarText('Загрузите основное изображение')
+            }
+        })
+     }
+     const FilerSecondImage = (e) =>{
+        const selectedFile = document.getElementById('fileInput2').files[0];
+        console.log(selectedFile)
+        var form = new FormData()
+        form.append('file', selectedFile);
+        form.append('imageForTovar',true);
+        axios.post('http://g908020p.beget.tech', form)
+        .then(response =>{
+            console.log(response.data.length)
+            if (response.data.length == 36){
+                alert.success(`Второе изображение успешно загружено`);
+                setAddTwoImageTovar(response.data)
+                setTwoImageTovarText(selectedFile.name)
+            }else if(response.data == 'FileSoBig'){
+                alert.error(`Файл слишком большой (95мб макс.)` );
+                setTwoImageTovarText('Загрузите второе изображение')
+            }else if (response.data == 'badFormat'){
+                alert.error(`Выбран неверный формат (не jpg, jpeg или png)` );
+                setTwoImageTovarText('Загрузите второе изображение')
+            }else{
+                alert.error(`Неизвестная ошибка, обратитесь к сисадмину` );
+                setTwoImageTovarText('Загрузите второе изображение')
+            }
+        })
+     }
+
+    const AugmentNewTovar = (e) =>{
+        if (AddTovarTags !== '' && AddTovarName !== '' && AddTovarDesc !== '' && AddTovarPrice !== '' && AddTovarRazmer !== '' && typeof AddMainImageTovar !== 'undefined' && typeof AddTwoImageTovar !== 'undefined'){
+            let imges = AddMainImageTovar+','+AddTwoImageTovar
+            console.log('confirm tovar augmented')
+            console.log(AddTovarName,AddTovarDesc,AddTovarPrice,AddTovarRazmer ,AddMainImageTovar,AddTwoImageTovar,' _____ ',imges)
+            var form = new FormData()
+            form.append('AugNewTovar',true);
+            form.append('Name',AddTovarName);
+            form.append('Desc',AddTovarDesc);
+            form.append('Tags',AddTovarTags);
+            form.append('Price',AddTovarPrice);
+            form.append('Razmer',AddTovarRazmer);
+            form.append('MainImg',AddMainImageTovar);
+            form.append('AllImgs',imges);
+            axios.post('http://g908020p.beget.tech', form)
+            .then(response =>{
+                console.log(response.data)
+            })
+        }else{
+            alert.error(`Товар не был добавлен, проверьте данные, если все поля заполнены, обратитесь к сисадмину`)
+        }
+     }
+
+     const AcceptUserPortret = (e) =>{
+        console.log(e.target.name)
+        var form = new FormData()
+        form.append('idPortret', e.target.name)
+        form.append('AcceptPortretUser', true);
+        fetch("http://g908020p.beget.tech",{
+            method: 'POST',
+            body: form
+        })
+        .then (response => response.text())
+        .then(response => {
+            console.log(response)
+            if (response == "conf"){
+                document.getElementById('Otpv'+e.target.name).innerHTML = "Получен"
+                alert.success(`Вы подтвердили получение заказа` );
+            }else{
+                alert.error( 'Что-то пошло не так на сервере' );
+            }
+        })
+    }
+
+
+     const AcceptUserOffer = (e) =>{
+        console.log(e.target.name)
+        var form = new FormData()
+        form.append('idOffer', e.target.name)
+        form.append('AcceptOfferUser', true);
+        fetch("http://g908020p.beget.tech",{
+            method: 'POST',
+            body: form
+        })
+        .then (response => response.text())
+        .then(response => {
+            console.log(response)
+            if (response == "conf"){
+                document.getElementById('Otpv'+e.target.name).innerHTML = "Получен"
+                alert.success(`Вы подтвердили получение заказа` );
+            }else{
+                alert.error( 'Что-то пошло не так на сервере' );
+            }
+        })
+    }
 
 
      const LoadOffersSending = (e) => {
@@ -121,11 +260,52 @@ export default function Account(props) {
             })
         }
      }
+     const LoadPortretsSending = (e) => {
+        if(UsersPortretsSend == '' && UserStatus != 0){
+            if (UserStatus == 1){
+                setUserStatus(4)
+            }
+            var form = new FormData()
+            form.append('UsersPortretsSend', true);
+            fetch("http://g908020p.beget.tech",{
+                method: 'POST',
+                body: form
+            })
+            .then (response => response.text())
+            .then(response => {
+                const f = JSON.parse(response);
+                console.log(f)
+                setUsersPortretsSend(f)
+            })
+        }
+     }
      const CloseOfferSending = (e) =>{
         console.log(e.target.name)
         var form = new FormData()
         form.append('idOfferSending', e.target.name)
         form.append('CloseOfferSending', true);
+        fetch("http://g908020p.beget.tech",{
+            method: 'POST',
+            body: form
+        })
+        .then (response => response.text())
+        .then(response => {
+            console.log(response)
+            if (response == "conf"){
+                const z = document.getElementById('trtablehide'+e.target.name)
+                console.log(e.target.name)
+                z.style.display = 'none';
+                alert.success(`Заказ выполнен` );
+            }else{
+                alert.error( 'Что-то пошло не так на сервере' );
+            }
+        })
+     }
+     const ClosePortretsSending = (e) =>{
+        console.log(e.target.name)
+        var form = new FormData()
+        form.append('idPortretSending', e.target.name)
+        form.append('ClosePortretSending', true);
         fetch("http://g908020p.beget.tech",{
             method: 'POST',
             body: form
@@ -366,8 +546,6 @@ export default function Account(props) {
     }
 
 
-
-
     const Flip = (e) => {
             setChanging ( !Changing )
             setSpanText ('Отменить' )
@@ -390,9 +568,7 @@ export default function Account(props) {
             history.push ('/')
         
     }
-    const isValidDate = (date) => {
-        return date && Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date);
-      }
+
       if (UserStatus == 0){
         return (
             <div>
@@ -505,23 +681,90 @@ export default function Account(props) {
                                 </div>
                                 </Col>
                                 <Col className='HistoryOrders'>
+                                <span><h4>{HistoryOrdersTextDefault}</h4></span>
                                 { 
                                     HistoryOrders.map(el => {
+                                        console.log(HistoryOrders)
+                                        let b = '';
+                                        if (el.Accepted == 0){
+                                            b = 'Выжигается'
+                                            return(
+                                                <div>
+                                                    <span className='ProcessSpan'>{b}</span>
+                                                    <b>Дата заказа: {el.date}</b> <br/>
+                                                    <b>Заказанный товар: {el.orderUser}</b><br/> <br/>
+                                                </div>
+                                                )
+                                        }else if(el.Accepted == 1){
+                                            b = 'Готовится к отправке'
+                                            return(
+                                                <div>
+                                                    <span className='ProcessSpan'>{b}</span>
+                                                    <b>Дата заказа: {el.date}</b><br/>
+                                                    <b>Заказанный товар: {el.orderUser}</b><br/> <br/>
+                                                </div>
+                                                )
+                                        }else if (el.Accepted == 2){
+                                            b = 'Отправлен'
+                                            return(
+                                                <div>
+                                                    <span id = {'Otpv'+el.id} className='ProcessSpan'>{b} <button id={'OtpvButton'+el.id} name = {el.id} className='AcceptOfferButt' onClick={AcceptUserOffer}>Получил(а)</button></span>
+                                                    <b>Дата заказа: {el.date}</b><br/>
+                                                    <b>Заказанный товар: {el.orderUser}</b><br/> <br/>
+                                                </div>
+                                                )
+                                        }
                                         return(
                                         <div>
-                                            <b>Дата заказа: {el.date}</b><br/>
+                                            <span className='ProcessSpan'>Получен</span>
+                                            <b>Дата заказа: {el.date}</b> <br/>
                                             <b>Заказанный товар: {el.orderUser}</b><br/> <br/>
                                         </div>
                                         )
                                     })
                                 }
+                                <span><h4>{HistoryOrdersTextPortrets}</h4></span>
                                 {
                                     HistoryOrdersPortret.map(el =>{
+                                        let a = '';
                                         if(el.imagePortret.length > 45){
                                             el.imagePortret = el.imagePortret.slice(1)}
+                                            console.log(el.imagePortret)
+                                            if (el.Accepted == 0){
+                                                a = 'Выжигается'
+                                                return(
+                                                    <>
+                                                        <span className='ProcessSpan'>{a}</span>
+                                                        <b>Дата заказа: {el.date}</b> <br/>
+                                                        <b>Формат портрета: А{el.format}</b><br/>
+                                                        <img src={"http://g908020p.beget.tech"+el.imagePortret} className='imgOnAdmin'/><br/> <br/>
+                                                    </>
+                                                )
+                                            }else if(el.Accepted == 1){
+                                                a = 'Готовится к отправке'
+                                                return(
+                                                    <>
+                                                        <span className='ProcessSpan'>{a}</span>
+                                                        <b>Дата заказа: {el.date}</b> <br/>
+                                                        <b>Формат портрета: А{el.format}</b><br/>
+                                                        <img src={"http://g908020p.beget.tech"+el.imagePortret} className='imgOnAdmin'/><br/> <br/>
+                                                    </>
+                                                )
+                                            }else if (el.Accepted == 2){
+                                                a = 'Отправлен'
+                                                return(
+                                                    <>
+                                                        <span id = {'Otpv'+el.id} className='ProcessSpan'>{a} <button id={'OtpvButton'+el.id} name = {el.id} className='AcceptOfferButt' onClick={AcceptUserPortret}>Получил(а)</button></span>
+                                                        <b>Дата заказа: {el.date}</b> <br/>
+                                                        <b>Формат портрета: А{el.format}</b><br/>
+                                                        <img src={"http://g908020p.beget.tech"+el.imagePortret} className='imgOnAdmin'/><br/> <br/>
+                                                    </>
+                                                )
+                                            }
                                         return(
                                             <>
-                                                <b>Дата заказа: {el.date}</b><br/>
+                                                <span className='ProcessSpan'>Получен</span>
+                                                <b>Дата заказа: {el.date}</b> <br/>
                                                 <b>Формат портрета: А{el.format}</b><br/>
                                                 <img src={"http://g908020p.beget.tech"+el.imagePortret} className='imgOnAdmin'/><br/> <br/>
                                             </>
@@ -552,7 +795,7 @@ export default function Account(props) {
             <Container>
                 <Row> 
                     <Col>
-                        <Card >
+                        <Card>
                             <Card.Img variant="top"/>
                             <Card.Body>
                                 <Card.Title className='allLinks2' >Изменить статус</Card.Title>  
@@ -593,7 +836,86 @@ export default function Account(props) {
                             <div className = 'ProdNameDiv mb-2' >
                                 <button className='nextButtonZakaz' onClick={LoadOffersSending}>Загрузить готовые заказы</button>
                             </div>
+                            <div className = 'ProdNameDiv mb-2' >
+                                <button className='nextButtonZakaz' onClick={LoadPortretsSending}>Загрузить готовые портреты</button>
                             </div>
+                            </div>
+                        </Card> 
+                    </Col>
+                    </Row>
+                    <Row className = ' mt-5'>
+                    <Col>
+                        <Card >
+                            <Card.Img variant="top"/>
+                            <Card.Body>
+                                <Card.Title className='allLinks2' >Добавить товар</Card.Title>  
+                            </Card.Body>
+                            <Row>
+                            <Col>
+                            <div>
+                                <label className="field field_v3 inpReg ml-3">
+                                    <input type = 'text' className="field__input inpReg" value = {AddTovarName} onChange={(e) =>{setAddTovarName ( e.target.value ) }} />
+                                    <span className="field__label-wrap inpReg">
+                                        <span className="field__label inpReg" >Название товара</span>
+                                    </span>
+                                </label> <br/>
+
+                                <label className="field field_v3 inpReg ml-3">
+                                    <input type = 'text' className="field__input inpReg" value = {AddTovarDesc} onChange={(e) =>{setAddTovarDesc ( e.target.value ) }} />
+                                    <span className="field__label-wrap inpReg">
+                                        <span className="field__label inpReg" >Описание</span>
+                                    </span>
+                                </label> <br/>
+
+                                <label className="field field_v3 inpReg ml-3">
+                                    <input type = 'number' className="field__input inpReg" value = {AddTovarPrice} onChange={(e) =>{setAddTovarPrice ( e.target.value ) }} />
+                                    <span className="field__label-wrap inpReg">
+                                        <span className="field__label inpReg" >Цена</span>
+                                    </span>
+                                </label> <br/>
+
+                                <label className="field field_v3 inpReg ml-3">
+                                    <input type = 'text' className="field__input inpReg" value = {AddTovarRazmer} onChange={(e) =>{setAddTovarRazmer ( e.target.value ) }} />
+                                    <span className="field__label-wrap inpReg">
+                                        <span className="field__label inpReg" >Размеры</span>
+                                    </span>
+                                </label> <br/>
+                                <label className="field field_v3 inpReg ml-3">
+                                    <input type = 'text' className="field__input inpReg" value = {AddTovarTags} onChange={(e) =>{setAddTovarTags ( e.target.value ) }} />
+                                    <span className="field__label-wrap inpReg">
+                                        <span className="field__label inpReg" >Тэги</span>
+                                    </span>
+                                </label> <br/>
+                                <div className = 'ProdNameDiv mb-2' >
+                                    <button className='nextButtonZakaz AddTovButt' onClick={AugmentNewTovar}>Добавить товар</button>
+                                </div>
+                            </div>
+                            </Col>
+                            <Col>
+                            Изображения
+                            <div className="example-1 fileInput">
+                                <div className="form-group">
+                                    <label className="label">
+                                        <span className="title">{MainImageTovarText}</span>
+                                        <form encType="multipart/form-data">
+                                            <input type="file" id = 'fileInput'  name="path" onChange={FilerMainImage}/>
+                                        </form>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div className="example-1 fileInput">
+                                <div className="form-group">
+                                    <label className="label">
+                                        <span className="title">{TwoImageTovarText}</span>
+                                        <form encType="multipart/form-data">
+                                            <input type="file" id = 'fileInput2'  name="path" onChange={FilerSecondImage}/>
+                                        </form>
+                                    </label>
+                                </div>
+                            </div>
+                            </Col>
+                            </Row>
                         </Card> 
                     </Col>
                 </Row>
@@ -784,12 +1106,61 @@ export default function Account(props) {
                         </Row> 
                         </Container>
                     </>)
+                 }else if (UsersPortretsSend != ''){
+                    return(
+                        <>
+                        <br/><br/><br/>
+                        <Container className='QuestionsCont'>
+                        <Row> 
+                        <Col>
+                        </Col>
+                        <Col>
+                        <div className = 'ProdNameDiv mb-2' > <h1>Заказы</h1></div>
+                        <table className='QuestionsCont'>
+                            <thead>
+                                <td>Готово</td>
+                                <td>Изображение</td>
+                                <td>Формат</td>
+                                <td>ФИО</td>
+                                <td>Адресс</td>
+                                <td>Почта</td>
+                                <td>Доп. примечание</td>
+                            </thead>
+                            <tbody>
+                            {
+                            UsersPortretsSend.map(el => {
+                                if(el.imagePortret.length > 45){
+                                el.imagePortret = el.imagePortret.slice(1)}
+                                return(
+                                <>
+                                    <tr id={'trtablehide'+el.id}>
+                                        <td><button className='nextButtonZakaz' name={el.id} onClick={ClosePortretsSending}>Отправлено</button></td>
+                                        <td><img src={"http://g908020p.beget.tech"+el.imagePortret} className='imgOnAdmin'/></td>
+                                        <td><span>  <strong>A{el.format}</strong> </span> <br/></td>
+                                        <td><span>  <strong>{el.FIO}</strong> </span> <br/></td>
+                                        <td><span>  <strong>{el.Adress}</strong> </span> <br/></td>
+                                        <td><span>  <strong>{el.email}</strong> </span> <br/></td>
+                                        <td><span>  <strong>{el.addictionalNote}</strong> </span> <br/></td>
+                                    </tr>
+                                </>
+                                )
+                            })    
+                        } 
+                            </tbody>
+                        </table>
+                        </Col>
+                        <Col>
+                        </Col>
+                        </Row> 
+                        </Container>
+                    </>)
                  }else{
                     return (
                         <>
                         <br/><br/><br/><br/>
                         <div className = 'ProdNameDiv mb-2' >
-                            <button className='nextButtonZakaz' onClick={LoadOffersSending}>Загрузить заказы из каталога</button>
+                            <button className='nextButtonZakaz' onClick={LoadOffersSending}>Загрузить заказы из каталога</button><br/><br/>
+                            <button className='nextButtonZakaz' onClick={LoadPortretsSending}>Загрузить заказы портретов</button>
                         </div>
                         </>
                     )

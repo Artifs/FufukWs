@@ -204,11 +204,7 @@ Auth = (e) => {
                                 <Nav.Link ><span className='ml-3 mr-3 allLinks' >Тех. поддержка</span></Nav.Link>
                             </LinkContainer>
                             </Nav.Item>
-                            <Nav.Item>
-                            <LinkContainer onClick={() => {this.setState({expanded:false})}} to = '/Test'>
-                                <Nav.Link ><span className='ml-3 mr-3 allLinks' >Тест</span></Nav.Link>
-                            </LinkContainer>
-                            </Nav.Item>
+                            
                             </Nav>
                             <Breakpoint customQuery="(min-width: 992px)">
                                 <OverlayTrigger  show={this.isDisabled()} trigger="click" placement="bottom" overlay={popover} className = 'AuthIcon' >

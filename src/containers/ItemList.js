@@ -18,7 +18,7 @@ function ItemList() {
         .then(response => response.text())
         .then(response => {
             var json = JSON.parse(response)
-            setCatalog(json.items)
+            setCatalog(json)
             setLoading(true)
             console.log(json)
 
@@ -26,6 +26,7 @@ function ItemList() {
         .catch(error => {
             console.log(error)
         })
+
      }, [])
 
 if (loading == false){
@@ -65,7 +66,7 @@ if (loading == false){
                                         <Card >
                                             <Card.Img variant="top" src = {'http://g908020p.beget.tech/images/'+el.mainImage} />
                                             <Card.Body>
-                                                <Card.Title className='allLinks2'>{el.Name}<span className='priceSpan'>{el.price}p</span></Card.Title>  
+                                                <Card.Title className='allLinks2'>{el.name}<span className='priceSpan'>{el.price}p</span></Card.Title>  
                                             </Card.Body>
                                         </Card> 
                                 </Nav.Link>

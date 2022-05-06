@@ -1,8 +1,16 @@
+import { Wallpaper } from '@material-ui/icons';
 import React, { useEffect } from 'react'
-import { Container,Row,Col,Tab,Nav  } from 'react-bootstrap';
+import { Container,Row,Col,Card,Nav,Tab } from 'react-bootstrap';
+import { LinkContainer } from "react-router-bootstrap";
 import { IoLogoVk,IoLogoInstagram } from "react-icons/io";
+import CatalogSample from '../assets/CatalogSample.png'
 
 export default function Uhod(props) {
+
+
+    const repostVkApi = (e) =>{
+        window.open('https://vk.com/share.php?url=http://u124078.test-handyhost.ru/&title=FUFUK WS - магазин древесных изделий&image=http://u124078.test-handyhost.ru/static/media/fufuk%20logo.b0145ca9.png')
+    }
         return (
             <div className = 'MarginTop'>
                <Container>
@@ -23,8 +31,9 @@ export default function Uhod(props) {
                             <Nav.Link eventKey="third" style={{padding:'.3rem 1.9rem', borderRadius:'20pt'}}> <span className='textNav'>Тех. поддержка</span></Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                            <Nav.Link eventKey="four" style={{padding:'.3rem 1.9rem', borderRadius:'20pt'}}> <span className='textNav'>О нас</span></Nav.Link>
+                            <Nav.Link eventKey="four" style={{padding:'.3rem 1.9rem', borderRadius:'20pt'}}> <span className='textNav'>Благодарность</span></Nav.Link>
                             </Nav.Item>
+                           
                         </Nav>
                         </Col>
                         <Col sm={9}>
@@ -55,15 +64,20 @@ export default function Uhod(props) {
                             <br/><br/><span className='numb'>Как проходит общение с тех. поддержкой</span><br/>
                             Вы на сайте указываете свою почту и пишите интересующий вас вопрос, далее мы отвечаем вам на почту, где и будет проходить дальнейший диалог.
                             </div>
-
                             </Tab.Pane>
-                            <Tab.Pane eventKey="four"><div className='CardBody'>
-                            <span className='numb'>Кто мы?</span><br/>
-                            Владельцы выжигательного станка, базируемся в Ярославской области.
-                            <br/><br/><span className='numb'>Наши соц. сети, которые мы используем как портфолио</span><br/>
-                            <a href="https://vk.link/fufuk"><IoLogoVk  cursor = "pointer" className='FootIcon footicon2'  /> </a> &nbsp;
-                            <a href= "https://www.instagram.com/fufuk_workshop/"><IoLogoInstagram cursor = "pointer" className='FootIcon footicon2' /></a> 
-                            
+
+                            <Tab.Pane eventKey="four"><div className='CardBody'><br/>
+                            <span className='numb'>Если вам понравились наши товары, лучший ваш метод благодарности - распространение нас в социальных сетях.</span><br/>
+                            Вы можете это сделать следующими методами: <br/>
+                            Репост в ВКонтакте. <IoLogoVk variant="success" cursor = "pointer" className='FootIcon' onClick={repostVkApi}  /> 
+                            <br/>Или перейти по этой рекламе и купите товар.<br/>
+                            <LinkContainer to={`/Catalog`}>
+                                 <Nav.Link >
+                                        <Card >
+                                            <Card.Img src={CatalogSample} />
+                                        </Card> 
+                                </Nav.Link>
+                            </LinkContainer>
                             </div>
                             </Tab.Pane>
                         </Tab.Content>

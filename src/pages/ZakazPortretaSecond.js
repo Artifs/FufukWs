@@ -1,9 +1,9 @@
-import {Container,Row,Col } from 'react-bootstrap';
+import {Container,Row,Col,Nav } from 'react-bootstrap';
 import React, { Component } from 'react'
 import {withRouter} from 'react-router'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-
+import { LinkContainer } from "react-router-bootstrap";
 
 class ZakazPortretaSecond extends Component {
     constructor(props){
@@ -55,9 +55,8 @@ class ZakazPortretaSecond extends Component {
         if (typeof selectedFile !== 'undefined'){
             this.setState({
                 textOnFileLoader:'Загрузка фото',
-                file: selectedFile,
-                photoIsLoaded: true
-            })
+                file: selectedFile
+                })
             var form = new FormData()
             form.append('file', selectedFile);
             form.append('loadedimg', true);
@@ -114,7 +113,7 @@ class ZakazPortretaSecond extends Component {
         return (
             <div className='MarginTop'>
                 <h2 className='textSecond text-center' >Загрузите ваше изображение<br/>
-                <span className='reqText' >Вес изображения не должен превышать 50 мб, также оно должно быть в одном из стандартных форматов: PNG, JPEG (JPG), если вам нужна помощь с выбором фотографии, прочитайте советы в разделе FAQ,<br/> если останутся сомнения, смело пишите в техническую поддержку, вам всегда будут рады. </span><br/></h2>
+                <LinkContainer to={`/FAQ`}><Nav.Link className='DontBlueText'>  <span className='reqText' >Вес изображения не должен превышать 50 мб, также оно должно быть в одном из стандартных форматов: PNG, JPEG (JPG), если вам нужна помощь с выбором фотографии, прочитайте советы в разделе <a className='Hyperlink'>FAQ</a> ,<br/></span></Nav.Link></LinkContainer><span className='reqText' ><LinkContainer to={`/TechicalSupport`}><Nav.Link className='DontBlueText'>  если останутся сомнения, смело пишите в <a className='Hyperlink'>техническую поддержку</a>, вам всегда будут рады.</Nav.Link></LinkContainer></span> <br/></h2>
                 
                 <Container className = 'inputsPortrets'>
                 <Row>

@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from 'react'
 import { Container,Row,Col,Tab,Nav  } from 'react-bootstrap';
 import { UserContext } from "../App";
 import { useAlert } from "react-alert";
+import { LinkContainer } from "react-router-bootstrap";
 
 
 export default function TechSupp(props) {
@@ -45,15 +46,13 @@ export default function TechSupp(props) {
     }
         return (
             <div className='MarginTop'>
-               <Container>
-                    <Row>
-                        <Col>
+                    
                             <div className = 'ProdNameDiv mb-5' >
                                 <span className = 'ProdName'>Техническая поддержка</span><br/> <br/>
-                                Подробнее о правилах технической поддержки читайте в FAQ
+                                <LinkContainer to={`/FAQ`}><Nav.Link className='DontBlueText'>Подробнее о правилах технической поддержки читайте в <a className='Hyperlink'>FAQ</a></Nav.Link></LinkContainer> 
                             </div>
-                        </Col>
-                    </Row>
+                        
+                    <Container>
                     <Row>
                         <Col>
                             <label className="field field_v3 QuestLine">

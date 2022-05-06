@@ -13,7 +13,6 @@ import Account from './pages/Account';
 import Tovar from './pages/Tovar';
 import FAQ from './pages/FAQ';
 import Cart from './pages/Cart';
-import Test from './pages/Test'
 import { withRouter} from 'react-router-dom';
 import TechSupp from './pages/TechSupp';
 import ZakazPortretaOformlenie from './pages/ZakazPortretaOformlenie'
@@ -36,7 +35,6 @@ function Routes() {
         <Route  path = "/Cart" component = {Cart}/> 
         <Route  path = "/TechicalSupport" component = {TechSupp}/> 
         <Route  path = '/Tovar/:id' component={Tovar} /> 
-        <Route  path = "/Test" component = {Test}/> 
       </Switch>
       <Header />
     </div>

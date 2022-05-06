@@ -13,6 +13,7 @@ export default function Tovar(props) {
     const [Count, setCount] = useState(1)
     const [itemList, setItemList] = useState()
     const [tovar, setTovar] = useState([])
+    const [images, setImages] = useState([])
     const alert = useAlert();
     const history = useHistory();
     
@@ -26,11 +27,11 @@ export default function Tovar(props) {
         .then(response => response.text())
         .then(response => {
             var json = JSON.parse(response)
-            setItemList(json.items)
-            console.log(json.items)
-            json.items.find((e) => {
+            setItemList(json)
+            json.find((e) => {
                 if(e.id == id && tovar ==''){
                     setTovar(e)
+                    setImages (e.images.split(','))
                     return 
                 }
             })
@@ -51,13 +52,14 @@ export default function Tovar(props) {
 
 
     if(tovar != ''){
+
     return (
         <div className='MarginTop mb-3'>
              <Container>
                 <Row> 
                     <Col>
                     <div className = 'ProdNameDiv mb-5' >
-                        <span className = 'ProdName'>{tovar.Name}</span>
+                        <span className = 'ProdName'>{tovar.name}</span>
                     </div>
                     </Col>
                     </Row>
@@ -65,7 +67,7 @@ export default function Tovar(props) {
                         <Col>
                             <Carousel>
                             {
-                                tovar.images.map(im => (
+                                images.map(im => (
                                     <Carousel.Item >
                                         <img 
                                             className = "d-block w-100 CarouselImg"

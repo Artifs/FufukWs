@@ -39,7 +39,7 @@ export default function Cart(props) {
             setCart(userCart.cart) 
             userCart.cart.find((x) => {
                let s  = x[1]
-               json.items.find((e) => {
+               json.find((e) => {
                    if (e.id == x[0]){
                        setTovar ((oldItems) => [...oldItems, [e,s]])
                    }
@@ -99,7 +99,7 @@ export default function Cart(props) {
         form.append('addictionalNote',addictionalNote)
         tovar.map((el,t) => {
             if(el.length > 1){
-                names = names+el[0].Name+' - '+el[1]+" шт, "
+                names = names+el[0].name+' - '+el[1]+" шт, "
             }
              console.log(el[0])
         })
@@ -252,7 +252,7 @@ export default function Cart(props) {
                                 <>
                                 <Row className='mb-2' xs = {2} sm ={2} md = {2} lg={2} xl={2}>
                                     <Col xs = {9} sm ={9} md = {9} xl = {9} lg ={9} className='CartInf'>
-                                    <div ><span className='MainText'>{tovar[i][0].Name}</span></div> 
+                                    <div ><span className='MainText'>{tovar[i][0].name}</span></div> 
                                     Количество: <span className='MainText'>{tovar[i][1]}</span> <br/>
                                     <span className='MainText'>{tovar[i][0].price} RUB</span>
                                     </Col>

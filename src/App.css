@@ -5,22 +5,44 @@
   .nextButton{
     float: left;
   }
-}
-@media (max-width: 509px){
-  .tagCaption{
-    font-size: 13pt;
-  }
-  .UndtagCaption{
-    font-size: 7pt;
+  .imgOnAdmin{
+    max-width: 500px;
+    max-height: 500px;
   }
 }
-
+@media (max-width: 500px){
+  .imgOnAdmin{
+    max-width: 300px;
+    max-height: 500px;
+  }
+}
+@media (min-width: 501px){
+  .imgOnAdmin{
+    max-width: 400px;
+    max-height: 500px;
+  }
+}
+@media (max-width: 350px) {
+  .imgOnAdmin{
+    max-width: 200px;
+    max-height: 500px;
+  }
+}
 @media (max-width: 418px){
   .tagCaption{
     font-size: 10pt;
   }
   .UndtagCaption{
     font-size: 5pt;
+  }
+}
+
+@media (max-width: 510px){
+  .tagCaption{
+    font-size: 20pt;
+  }
+  .UndtagCaption{
+    font-size: 10pt;
   }
 }
 
@@ -340,10 +362,7 @@ color:rgb(187, 187, 187);
 .questSpan{
   max-width: 600px;
 }
-.imgOnAdmin{
-  max-width: 500px;
-  max-height: 500px;
-}
+
 .QuestionsCont{
   max-width: 1920px;
   word-wrap: break-word;
@@ -418,6 +437,9 @@ A.dot {
   border-bottom: 1px dashed #868686;
  }
 
+ .AddTovButt{
+   float: left;
+ }
 .nextButtonZakaz{
   border-width: 0;
   border: 1px solid #343a40;
@@ -428,6 +450,24 @@ A.dot {
   border-radius: 25pt;
   color: white;
   font-size: 12pt;
+}
+.AcceptOfferButt{
+  
+  border-width: 0;
+  border: 1px solid #7e7e7e;
+  background-color: rgb(0, 0, 0);
+  padding-left: 22px;
+  padding-right: 22px;
+  border-radius: 25pt;
+  color: rgb(255, 255, 255);
+  font-size: 12pt;
+  transition: 0.2s linear; 
+}
+.AcceptOfferButt:hover{
+  border: 1px solid #000000;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+
 }
 .AddToCartButt{
   border-width: 0;
@@ -467,6 +507,15 @@ input::-webkit-inner-spin-button {
 .fullLogo{
   margin-right: 0;
 }
+.DontBlueText{
+  color: #000;
+}
+.DontBlueText:hover{
+  color: #000;
+}
+.Hyperlink{
+  color: #0055ff;
+}
 .colCard:hover{
   opacity: 0.85;
   cursor: pointer;
@@ -480,6 +529,17 @@ html{
 }
 .ProdNameDiv{
   text-align: center;
+}
+
+.ProcessSpan{
+  color: white;
+  float: right;
+  border: 1px solid #000000;
+  background-color: rgb(0, 0, 0);
+  padding: 5px;
+  border-radius: 50px 50px 50px 50px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .CarouselProd{
   width: 100%;

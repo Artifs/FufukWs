@@ -29,7 +29,6 @@ export default function ZakazPortretaResult(props) {
 
             setPortretCash((p) => ({ CashPortret:[choosen , price] }))
             setFilesPortret((p) => ({ filesPortret:[file, imgUpload] }))
-            //history.push('/Cart')
         }
         if (price === 0 && choosen === 4){
             setPrice(1500)
@@ -40,17 +39,6 @@ export default function ZakazPortretaResult(props) {
         }
         return (
             <div className="mb-5 MarginTop" >
-                 {/* <UserContext.Consumer>
-                    {(value) =>{
-                        if(addCart === true){
-                            value.setPortetCash((p) => ({ ...p, CashPortret:[ ...value.portretCash.CashPortret , [999 ,choosen , price,1]] }))
-                            value.setFilesPortret((p) => ({ ...p, filesPortret:[ ...value.filesPortret.filesPortret , [file, choosen]] }))
-                            setAddCart(false)
-                            console.log(value.portretCash)
-                        }
-                    }
-                } 
-                </UserContext.Consumer> */}
                 <h2 className='textSecond text-center' >Подтвердите формат и изображение портрета</h2>
                 <h5 className='mb-5 text-center'>
                     <LinkContainer to='/ZakazPortretaOformlenie'>
